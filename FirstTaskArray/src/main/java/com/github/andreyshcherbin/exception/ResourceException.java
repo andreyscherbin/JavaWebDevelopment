@@ -1,4 +1,4 @@
-package com.andreyshcherbin.exception;
+package com.github.andreyshcherbin.exception;
 
 public class ResourceException extends Exception {
 	public ResourceException() {

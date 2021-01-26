@@ -1,13 +1,12 @@
-package com.andreyshcherbin.action;
+package com.github.andreyshcherbin.action;
 
-import java.util.stream.*;
-import com.andreyshcherbin.entity.MyArray;
+import com.github.andreyshcherbin.entity.CustomArray;
 
-public class MyArrayLogic {
+public class CustomArrayAction {
 
-	public int getMinElement(MyArray myArray) {
+	public int getMinElement(CustomArray customArray) {
 		int min = Integer.MAX_VALUE;
-		int[] array = myArray.getArray();
+		int[] array = customArray.getArray();
 		for (int i = 0; i < array.length; i++) {
 			if (array[i] < min) {
 				min = array[i];
@@ -16,9 +15,9 @@ public class MyArrayLogic {
 		return min;
 	}
 
-	public int getMaxElement(MyArray myArray) {
+	public int getMaxElement(CustomArray customArray) {
 		int max = Integer.MIN_VALUE;
-		int[] array = myArray.getArray();
+		int[] array = customArray.getArray();
 		for (int i = 0; i < array.length; i++) {
 			if (array[i] > max) {
 				max = array[i];
@@ -27,8 +26,8 @@ public class MyArrayLogic {
 		return max;
 	}
 
-	public int[] oddElementsMultiplyByTwo(MyArray myArray) {
-		int[] array = myArray.getArray();
+	public int[] oddElementsMultiplyByTwo(CustomArray customArray) {
+		int[] array = customArray.getArray();
 		for (int i = 0; i < array.length; i++) {
 			if (array[i] % 2 != 0) {
 				array[i] = array[i] * 2;
@@ -37,9 +36,9 @@ public class MyArrayLogic {
 		return array;
 	}
 
-	public double getAverageValue(MyArray myArray) {
+	public double getAverageValue(CustomArray customArray) {
 		double average = 0;
-		int[] array = myArray.getArray();
+		int[] array = customArray.getArray();
 		for (int i = 0; i < array.length; i++) {
 			average += array[i];
 		}
@@ -47,18 +46,18 @@ public class MyArrayLogic {
 		return average;
 	}
 
-	public int getSum(MyArray myArray) {
+	public int getSum(CustomArray customArray) {
 		int sum = 0;
-		int[] array = myArray.getArray();
+		int[] array = customArray.getArray();
 		for (int i = 0; i < array.length; i++) {
 			sum += array[i];
 		}
 		return sum;
 	}
 
-	public int getNumberPositiveElements(MyArray myArray) {
+	public int getNumberPositiveElements(CustomArray customArray) {
 		int counter = 0;
-		int[] array = myArray.getArray();
+		int[] array = customArray.getArray();
 		for (int i = 0; i < array.length; i++) {
 			if (array[i] > 0) {
 				counter++;
@@ -67,9 +66,9 @@ public class MyArrayLogic {
 		return counter;
 	}
 
-	public int getNumberNegativeElements(MyArray myArray) {
+	public int getNumberNegativeElements(CustomArray customArray) {
 		int counter = 0;
-		int[] array = myArray.getArray();
+		int[] array = customArray.getArray();
 		for (int i = 0; i < array.length; i++) {
 			if (array[i] < 0) {
 				counter++;
@@ -78,8 +77,8 @@ public class MyArrayLogic {
 		return counter;
 	}
 
-	public int[] bubbleSort(MyArray myArray) {
-		int[] array = myArray.getArray();
+	public int[] bubbleSort(CustomArray customArray) {
+		int[] array = customArray.getArray();
 		for (int i = 0; i < array.length; i++) {
 			for (int j = 0; j < array.length - i - 1; j++) {
 				if (array[j] > array[j + 1]) {
@@ -92,17 +91,17 @@ public class MyArrayLogic {
 		return array;
 	}
 
-	public int[] quickSort(MyArray myArray, int array[], int low, int high) {
-		array = myArray.getArray();
+	public int[] quickSort(CustomArray customArray, int[] array, int low, int high) {
+		array = customArray.getArray();
 		if (low < high) {
 			int pi = partition(array, low, high);
-			quickSort(myArray, array, low, pi - 1);
-			quickSort(myArray, array, pi + 1, high);
+			quickSort(customArray, array, low, pi - 1);
+			quickSort(customArray, array, pi + 1, high);
 		}
 		return array;
 	}
 
-	private int partition(int arr[], int low, int high) {
+	private int partition(int[] arr, int low, int high) {
 		int pivot = arr[high];
 		int i = (low - 1);
 		for (int j = low; j < high; j++) {
@@ -120,32 +119,33 @@ public class MyArrayLogic {
 		return i + 1;
 	}
 
-	public int[] mergeSort(MyArray myArray, int array[], int l, int r) {
-		array = myArray.getArray();
+	public int[] mergeSort(CustomArray customArray, int[] array, int l, int r) {
+		array = customArray.getArray();
 		if (l < r) {
 			int m = (l + r) / 2;
 
-			mergeSort(myArray, array, l, m);
-			mergeSort(myArray, array, m + 1, r);
+			mergeSort(customArray, array, l, m);
+			mergeSort(customArray, array, m + 1, r);
 
 			merge(array, l, m, r);
 		}
 		return array;
 	}
 
-	private void merge(int array[], int l, int m, int r) {
+	private void merge(int[] array, int l, int m, int r) {
 		int n1 = m - l + 1;
 		int n2 = r - m;
 
-		int L[] = new int[n1];
-		int R[] = new int[n2];
+		int[] L = new int[n1];
+		int[] R = new int[n2];
 
 		for (int i = 0; i < n1; ++i)
 			L[i] = array[l + i];
 		for (int j = 0; j < n2; ++j)
 			R[j] = array[m + 1 + j];
 
-		int i = 0, j = 0;
+		int i = 0;
+		int j = 0;
 
 		int k = l;
 		while (i < n1 && j < n2) {

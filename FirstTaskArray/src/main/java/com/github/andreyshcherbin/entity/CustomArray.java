@@ -1,19 +1,19 @@
-package com.andreyshcherbin.entity;
+package com.github.andreyshcherbin.entity;
 
 import java.io.Serializable;
 import java.util.Arrays;
 
-public class MyArray implements Serializable {
+public class CustomArray implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
 	private int[] array;
 
-	public MyArray() {
+	public CustomArray() {
 
 	}
 
-	public MyArray(int[] array) {
+	public CustomArray(int[] array) {
 		this.array = array;
 	}
 
@@ -33,7 +33,7 @@ public class MyArray implements Serializable {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((array == null) ? 0 : array.hashCode());
+		result = prime * result + ((array == null) ? 0 : Arrays.hashCode(array));
 		return result;
 	}
 
@@ -48,13 +48,13 @@ public class MyArray implements Serializable {
 		if (getClass() != obj.getClass()) {
 			return false;
 		}
-		MyArray myArray = (MyArray) obj;
+		CustomArray customArray = (CustomArray) obj;
 
 		if (array == null) {
-			if (myArray.array != null) {
+			if (customArray.array != null) {
 				return false;
 			}
-		} else if (!Arrays.equals(myArray.array, this.array)) {
+		} else if (!Arrays.equals(customArray.array, this.array)) {
 			return false;
 		}
 		return true;

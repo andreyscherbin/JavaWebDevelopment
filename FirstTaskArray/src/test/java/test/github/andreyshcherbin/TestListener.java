@@ -1,4 +1,4 @@
-package test.andreyshcherbin.action;
+package test.github.andreyshcherbin;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
