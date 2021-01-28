@@ -4,7 +4,7 @@ import com.github.andreyshcherbin.entity.CustomArray;
 
 public class CustomArrayAction {
 
-	public int minElement(CustomArray customArray) {
+	public int findMinElement(CustomArray customArray) {
 		int min = Integer.MAX_VALUE;
 		int[] array = customArray.getArray();
 		for (int i = 0; i < array.length; i++) {
@@ -15,7 +15,7 @@ public class CustomArrayAction {
 		return min;
 	}
 
-	public int maxElement(CustomArray customArray) {
+	public int findMaxElement(CustomArray customArray) {
 		int max = Integer.MIN_VALUE;
 		int[] array = customArray.getArray();
 		for (int i = 0; i < array.length; i++) {
@@ -36,7 +36,7 @@ public class CustomArrayAction {
 		return array;
 	}
 
-	public double averageValue(CustomArray customArray) {
+	public double findAverageValue(CustomArray customArray) {
 		double average = 0;
 		int[] array = customArray.getArray();
 		for (int i = 0; i < array.length; i++) {
@@ -46,7 +46,7 @@ public class CustomArrayAction {
 		return average;
 	}
 
-	public int sum(CustomArray customArray) {
+	public int findSum(CustomArray customArray) {
 		int sum = 0;
 		int[] array = customArray.getArray();
 		for (int i = 0; i < array.length; i++) {
@@ -55,7 +55,7 @@ public class CustomArrayAction {
 		return sum;
 	}
 
-	public int numberPositiveElements(CustomArray customArray) {
+	public int findNumberPositiveElements(CustomArray customArray) {
 		int counter = 0;
 		int[] array = customArray.getArray();
 		for (int i = 0; i < array.length; i++) {
@@ -66,7 +66,7 @@ public class CustomArrayAction {
 		return counter;
 	}
 
-	public int numberNegativeElements(CustomArray customArray) {
+	public int findNumberNegativeElements(CustomArray customArray) {
 		int counter = 0;
 		int[] array = customArray.getArray();
 		for (int i = 0; i < array.length; i++) {

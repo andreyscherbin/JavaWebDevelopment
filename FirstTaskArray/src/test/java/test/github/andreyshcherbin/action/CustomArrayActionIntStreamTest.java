@@ -29,14 +29,14 @@ public class CustomArrayActionIntStreamTest {
 	@Test(dataProvider = "arrays_min")
 	public void testCustomArrayActionIntStreamMinElement(int[] array, int expectedValue) throws ResourceException {
 		customArray.setArray(array);		
-		int actualValue = customArrayActionIntStream.minElement(customArray);
+		int actualValue = customArrayActionIntStream.findMinElement(customArray);
 		assertEquals(actualValue, expectedValue);		
 	}
 	
 	@Test(dataProvider = "arrays_max")
 	public void testCustomArrayActionIntStreamMaxElement(int[] array, int expectedValue) throws ResourceException {
 		customArray.setArray(array);		
-		int actualValue = customArrayActionIntStream.maxElement(customArray);
+		int actualValue = customArrayActionIntStream.findMaxElement(customArray);
 		assertEquals(actualValue, expectedValue);		
 	}
 	
@@ -51,28 +51,28 @@ public class CustomArrayActionIntStreamTest {
 	@Test(dataProvider = "arrays_averageValue")
 	public void testCustomArrayActionIntStreamAverageValue(int[] array, double expectedValue) throws ResourceException {
 		customArray.setArray(array);		
-		double actualValue = customArrayActionIntStream.averageValue(customArray);
+		double actualValue = customArrayActionIntStream.findAverageValue(customArray);
 		assertEquals(actualValue, expectedValue, 0.001);				
 	}
 	
 	@Test(dataProvider = "arrays_sum")
 	public void testCustomArrayActionSum(int[] array, int expectedValue) {
 		customArray.setArray(array);
-		int actualValue = customArrayActionIntStream.sum(customArray);
+		int actualValue = customArrayActionIntStream.findSum(customArray);
 		assertEquals(actualValue, expectedValue);		
 	}
 	
 	@Test(dataProvider = "arrays_numberPositiveElements")
 	public void testCustomArrayActionNumberPositiveElements(int[] array, int expectedValue) {
 		customArray.setArray(array);
-		int actualValue = customArrayActionIntStream.numberPositiveElements(customArray);
+		int actualValue = customArrayActionIntStream.findNumberPositiveElements(customArray);
 		assertEquals(actualValue, expectedValue);		
 	}
 	
 	@Test(dataProvider = "arrays_numberNegativeElements")
 	public void testCustomArrayActionNumberNegativeElements(int[] array, int expectedValue) {
 		customArray.setArray(array);
-		int actualValue = customArrayActionIntStream.numberNegativeElements(customArray);
+		int actualValue = customArrayActionIntStream.findNumberNegativeElements(customArray);
 		assertEquals(actualValue, expectedValue);		
 	}
 

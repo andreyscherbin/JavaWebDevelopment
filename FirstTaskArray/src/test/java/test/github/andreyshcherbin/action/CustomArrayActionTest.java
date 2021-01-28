@@ -33,14 +33,14 @@ public class CustomArrayActionTest {
 	@Test(dataProvider = "arrays_min")
 	public void testCustomArrayActionMinElement(int[] array, int expectedValue) {
 		customArray.setArray(array);
-		int actualValue = customArrayAction.minElement(customArray);
+		int actualValue = customArrayAction.findMinElement(customArray);
 		assertEquals(actualValue, expectedValue);
 	}
 	
 	@Test(dataProvider = "arrays_max")
 	public void testCustomArrayActionMaxElement(int[] array, int expectedValue) {
 		customArray.setArray(array);
-		int actualValue = customArrayAction.maxElement(customArray);
+		int actualValue = customArrayAction.findMaxElement(customArray);
 		assertEquals(actualValue,expectedValue);
 	}
 	
@@ -55,28 +55,28 @@ public class CustomArrayActionTest {
 	@Test(dataProvider = "arrays_averageValue")
 	public void testCustomArrayActionAverageValue(int[] array, double expectedValue) {
 		customArray.setArray(array);
-		double actualValue = customArrayAction.averageValue(customArray);
+		double actualValue = customArrayAction.findAverageValue(customArray);
 		assertEquals(actualValue,expectedValue, 0.001);		
 	}
 	
 	@Test(dataProvider = "arrays_sum")
 	public void testCustomArrayActionSum(int[] array, int expectedValue) {
 		customArray.setArray(array);
-		int actualValue = customArrayAction.sum(customArray);
+		int actualValue = customArrayAction.findSum(customArray);
 		assertEquals(actualValue,expectedValue);		
 	}
 	
 	@Test(dataProvider = "arrays_numberPositiveElements")
 	public void testCustomArrayActionNumberPositiveElements(int[] array, int expectedValue) {
 		customArray.setArray(array);
-		int actualValue = customArrayAction.numberPositiveElements(customArray);
+		int actualValue = customArrayAction.findNumberPositiveElements(customArray);
 		assertEquals(actualValue,expectedValue);		
 	}
 	
 	@Test(dataProvider = "arrays_numberNegativeElements")
 	public void testCustomArrayActionNumberNegativeElements(int[] array, int expectedValue) {
 		customArray.setArray(array);
-		int actualValue = customArrayAction.numberNegativeElements(customArray);
+		int actualValue = customArrayAction.findNumberNegativeElements(customArray);
 		assertEquals(actualValue,expectedValue);		
 	}
 	

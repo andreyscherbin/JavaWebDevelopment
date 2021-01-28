@@ -15,7 +15,7 @@ public class CustomArrayActionIntStream {
 	private static Logger logger = LogManager.getLogger();
 	private static final String ARRAY_IS_EMPTY = "array is empty";  
 
-	public int minElement(CustomArray customArray) throws ResourceException {
+	public int findMinElement(CustomArray customArray) throws ResourceException {
 		int[] array = customArray.getArray();
 		if (array.length == 0) {
 			logger.error(ARRAY_IS_EMPTY);
@@ -26,7 +26,7 @@ public class CustomArrayActionIntStream {
 		return obj.getAsInt();
 	}
 
-	public int maxElement(CustomArray customArray) throws ResourceException {
+	public int findMaxElement(CustomArray customArray) throws ResourceException {
 		int[] array = customArray.getArray();
 		if (array.length == 0) {
 			logger.error(ARRAY_IS_EMPTY);
@@ -52,7 +52,7 @@ public class CustomArrayActionIntStream {
 		return arr;
 	}
 
-	public double averageValue(CustomArray customArray) throws ResourceException {
+	public double findAverageValue(CustomArray customArray) throws ResourceException {
 		int[] array = customArray.getArray();
 		if (array.length == 0) {
 			logger.error(ARRAY_IS_EMPTY);
@@ -63,19 +63,19 @@ public class CustomArrayActionIntStream {
 		return obj.getAsDouble();
 	}
 
-	public int sum(CustomArray customArray) {
+	public int findSum(CustomArray customArray) {
 		int[] array = customArray.getArray();
 		IntStream stream = IntStream.of(array);
 		return stream.sum();
 	}
 
-	public int numberPositiveElements(CustomArray customArray) {
+	public int findNumberPositiveElements(CustomArray customArray) {
 		int[] array = customArray.getArray();
 		IntStream stream = IntStream.of(array);
 		return (int) stream.filter(e -> e > 0).count();
 	}
 
-	public int numberNegativeElements(CustomArray customArray) {
+	public int findNumberNegativeElements(CustomArray customArray) {
 		int[] array = customArray.getArray();
 		IntStream stream = IntStream.of(array);
 		return (int) stream.filter(e -> e < 0).count();
