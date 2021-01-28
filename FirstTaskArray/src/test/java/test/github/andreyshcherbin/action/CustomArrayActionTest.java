@@ -2,12 +2,10 @@ package test.github.andreyshcherbin.action;
 
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
-
 import java.util.Arrays;
-
 import org.testng.annotations.*;
-
 import com.github.andreyshcherbin.action.CustomArrayAction;
+import com.github.andreyshcherbin.action.CustomArraySort;
 import com.github.andreyshcherbin.entity.CustomArray;
 import test.github.andreyshcherbin.TestListener;
 
@@ -15,12 +13,14 @@ import test.github.andreyshcherbin.TestListener;
 public class CustomArrayActionTest {
 
 	CustomArrayAction customArrayAction;
+	CustomArraySort customArraySort;
 	CustomArray customArray;
 	
 	@BeforeClass
 	public void setUp() {
 		customArrayAction = new CustomArrayAction();
 		customArray = new CustomArray();
+		customArraySort = new CustomArraySort();
 	}
 
 	@Test(dataProvider = "arrays")
@@ -33,14 +33,14 @@ public class CustomArrayActionTest {
 	@Test(dataProvider = "arrays_min")
 	public void testCustomArrayActionMinElement(int[] array, int expectedValue) {
 		customArray.setArray(array);
-		int actualValue = customArrayAction.getMinElement(customArray);
+		int actualValue = customArrayAction.minElement(customArray);
 		assertEquals(actualValue, expectedValue);
 	}
 	
 	@Test(dataProvider = "arrays_max")
 	public void testCustomArrayActionMaxElement(int[] array, int expectedValue) {
 		customArray.setArray(array);
-		int actualValue = customArrayAction.getMaxElement(customArray);
+		int actualValue = customArrayAction.maxElement(customArray);
 		assertEquals(actualValue,expectedValue);
 	}
 	
@@ -55,35 +55,35 @@ public class CustomArrayActionTest {
 	@Test(dataProvider = "arrays_averageValue")
 	public void testCustomArrayActionAverageValue(int[] array, double expectedValue) {
 		customArray.setArray(array);
-		double actualValue = customArrayAction.getAverageValue(customArray);
+		double actualValue = customArrayAction.averageValue(customArray);
 		assertEquals(actualValue,expectedValue, 0.001);		
 	}
 	
 	@Test(dataProvider = "arrays_sum")
 	public void testCustomArrayActionSum(int[] array, int expectedValue) {
 		customArray.setArray(array);
-		int actualValue = customArrayAction.getSum(customArray);
+		int actualValue = customArrayAction.sum(customArray);
 		assertEquals(actualValue,expectedValue);		
 	}
 	
 	@Test(dataProvider = "arrays_numberPositiveElements")
 	public void testCustomArrayActionNumberPositiveElements(int[] array, int expectedValue) {
 		customArray.setArray(array);
-		int actualValue = customArrayAction.getNumberPositiveElements(customArray);
+		int actualValue = customArrayAction.numberPositiveElements(customArray);
 		assertEquals(actualValue,expectedValue);		
 	}
 	
 	@Test(dataProvider = "arrays_numberNegativeElements")
 	public void testCustomArrayActionNumberNegativeElements(int[] array, int expectedValue) {
 		customArray.setArray(array);
-		int actualValue = customArrayAction.getNumberNegativeElements(customArray);
+		int actualValue = customArrayAction.numberNegativeElements(customArray);
 		assertEquals(actualValue,expectedValue);		
 	}
 	
 	@Test(dataProvider = "arrays_bubbleSort")
 	public void testCustomArrayActionBubbleSort(int[] array, int[] expectedValue) {
 		customArray.setArray(array);		
-		int[] actual = customArrayAction.bubbleSort(customArray);
+		int[] actual = customArraySort.bubbleSort(customArray);
 		boolean result = Arrays.equals(actual, expectedValue);
 		assertTrue(result);		
 	}
@@ -92,7 +92,7 @@ public class CustomArrayActionTest {
 	public void testCustomArrayActionQuickSort(int[] array, int[] expectedValue) {
 		customArray.setArray(array);
 		int length = array.length - 1;
-		int[] actual = customArrayAction.quickSort(customArray, array, 0 , length);
+		int[] actual = customArraySort.quickSort(customArray, array, 0 , length);
 		boolean result = Arrays.equals(actual, expectedValue);
 		assertTrue(result);		
 	}
@@ -101,7 +101,7 @@ public class CustomArrayActionTest {
 	public void testCustomArrayActionMergeSort(int[] array, int[] expectedValue) {
 		customArray.setArray(array);
 		int length = array.length - 1;
-		int[] actual = customArrayAction.mergeSort(customArray, array, 0 , length);
+		int[] actual = customArraySort.mergeSort(customArray, array, 0 , length);
 		boolean result = Arrays.equals(actual, expectedValue);
 		assertTrue(result);	
 	}

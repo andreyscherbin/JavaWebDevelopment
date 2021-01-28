@@ -20,14 +20,16 @@ public class DataReaderTest {
 	static final String TEST_FILE = "data\\arrays.txt";
 	static final String TEST_FILE_ERROR = "data\\no_such_file.txt";
 	
+	DataReader reader;
+	
 	@BeforeClass
-	public void setUp() {		
+	public void setUp() {
+		reader = new DataReader();
 	}
 
 	@Test
-	public void testRead() throws ResourceException {
-		DataReader reader = new DataReader();
-		String actual = null;
+	public void testRead() throws ResourceException {		
+		String actual;
 		actual = reader.read(TEST_FILE);
 		String expected = "1 -5 -3 2 100 -900," 
 		               + "-5 2z 32 43 56 1 7 8 9,"
@@ -38,14 +40,8 @@ public class DataReaderTest {
 
 	@Test(expectedExceptionsMessageRegExp = "resource exception")
 	public void testReadExceptionMessage() {		
-		try {
-			DataReader reader = new DataReader();
-			String actual = null;
-			actual = reader.read(TEST_FILE_ERROR);
-			String expected = "1 -5 -3 2 100 -900," 
-			               + "-5 2z 32 43 56 1 7 8 9,"
-					       + "-43 -21 -43 -54 -76 -1,"
-					       + "3 2 1 0 -1 -8b -7 -6 -5";
+		try {				
+			reader.read(TEST_FILE_ERROR);			
 			fail("Test for read " + TEST_FILE_ERROR + " should have thrown a ResourceException");
 		} catch (ResourceException e) {
 			assertEquals(e.getMessage(), "resource exception");
@@ -53,6 +49,7 @@ public class DataReaderTest {
 	}
 	
 	@AfterClass
-	public void tierDown(){	 
+	public void tierDown(){
+		reader = null;
 	}
 }

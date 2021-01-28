@@ -2,20 +2,16 @@ package test.github.andreyshcherbin.action;
 
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
-
 import java.util.Arrays;
-
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
-
 import com.github.andreyshcherbin.action.CustomArrayActionIntStream;
 import com.github.andreyshcherbin.entity.CustomArray;
-import com.github.andreyshcherbin.exception.NotFoundException;
+import com.github.andreyshcherbin.exception.ResourceException;
+
 import test.github.andreyshcherbin.TestListener;
 
 @Listeners(TestListener.class)
@@ -31,16 +27,16 @@ public class CustomArrayActionIntStreamTest {
 	}
 	
 	@Test(dataProvider = "arrays_min")
-	public void testCustomArrayActionIntStreamMinElement(int[] array, int expectedValue) throws NotFoundException {
+	public void testCustomArrayActionIntStreamMinElement(int[] array, int expectedValue) throws ResourceException {
 		customArray.setArray(array);		
-		int actualValue = customArrayActionIntStream.getMinElement(customArray);
+		int actualValue = customArrayActionIntStream.minElement(customArray);
 		assertEquals(actualValue, expectedValue);		
 	}
 	
 	@Test(dataProvider = "arrays_max")
-	public void testCustomArrayActionIntStreamMaxElement(int[] array, int expectedValue) throws NotFoundException {
+	public void testCustomArrayActionIntStreamMaxElement(int[] array, int expectedValue) throws ResourceException {
 		customArray.setArray(array);		
-		int actualValue = customArrayActionIntStream.getMaxElement(customArray);
+		int actualValue = customArrayActionIntStream.maxElement(customArray);
 		assertEquals(actualValue, expectedValue);		
 	}
 	
@@ -53,30 +49,30 @@ public class CustomArrayActionIntStreamTest {
 	}
 	
 	@Test(dataProvider = "arrays_averageValue")
-	public void testCustomArrayActionIntStreamAverageValue(int[] array, double expectedValue) throws NotFoundException {
+	public void testCustomArrayActionIntStreamAverageValue(int[] array, double expectedValue) throws ResourceException {
 		customArray.setArray(array);		
-		double actualValue = customArrayActionIntStream.getAverageValue(customArray);
+		double actualValue = customArrayActionIntStream.averageValue(customArray);
 		assertEquals(actualValue, expectedValue, 0.001);				
 	}
 	
 	@Test(dataProvider = "arrays_sum")
 	public void testCustomArrayActionSum(int[] array, int expectedValue) {
 		customArray.setArray(array);
-		int actualValue = customArrayActionIntStream.getSum(customArray);
+		int actualValue = customArrayActionIntStream.sum(customArray);
 		assertEquals(actualValue, expectedValue);		
 	}
 	
 	@Test(dataProvider = "arrays_numberPositiveElements")
 	public void testCustomArrayActionNumberPositiveElements(int[] array, int expectedValue) {
 		customArray.setArray(array);
-		int actualValue = customArrayActionIntStream.getNumberPositiveElements(customArray);
+		int actualValue = customArrayActionIntStream.numberPositiveElements(customArray);
 		assertEquals(actualValue, expectedValue);		
 	}
 	
 	@Test(dataProvider = "arrays_numberNegativeElements")
 	public void testCustomArrayActionNumberNegativeElements(int[] array, int expectedValue) {
 		customArray.setArray(array);
-		int actualValue = customArrayActionIntStream.getNumberNegativeElements(customArray);
+		int actualValue = customArrayActionIntStream.numberNegativeElements(customArray);
 		assertEquals(actualValue, expectedValue);		
 	}
 

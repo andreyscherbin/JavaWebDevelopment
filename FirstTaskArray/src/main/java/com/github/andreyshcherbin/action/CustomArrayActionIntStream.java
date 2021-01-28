@@ -8,34 +8,33 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import com.github.andreyshcherbin.entity.CustomArray;
-import com.github.andreyshcherbin.exception.NotFoundException;
+import com.github.andreyshcherbin.exception.ResourceException;
 
 public class CustomArrayActionIntStream {
-	
-	static Logger logger = LogManager.getLogger();
 
-	public int getMinElement(CustomArray customArray) throws NotFoundException {
+	private static Logger logger = LogManager.getLogger();
+	private static final String ARRAY_IS_EMPTY = "array is empty";  
+
+	public int minElement(CustomArray customArray) throws ResourceException {
 		int[] array = customArray.getArray();
+		if (array.length == 0) {
+			logger.error(ARRAY_IS_EMPTY);
+			throw new ResourceException(ARRAY_IS_EMPTY);
+		}
 		IntStream stream = IntStream.of(array);
 		OptionalInt obj = stream.min();
-		if (obj.isPresent()) {
-			return obj.getAsInt();
-		} else {
-			logger.error("min element is missing");
-			throw new NotFoundException("min element is missing");
-		}
+		return obj.getAsInt();
 	}
 
-	public int getMaxElement(CustomArray customArray) throws NotFoundException {
+	public int maxElement(CustomArray customArray) throws ResourceException {
 		int[] array = customArray.getArray();
+		if (array.length == 0) {
+			logger.error(ARRAY_IS_EMPTY);
+			throw new ResourceException(ARRAY_IS_EMPTY);
+		}
 		IntStream stream = IntStream.of(array);
 		OptionalInt obj = stream.max();
-		if (obj.isPresent()) {
-			return obj.getAsInt();
-		} else {
-			logger.error("max element is missing");
-			throw new NotFoundException("max element is missing");
-		}
+		return obj.getAsInt();
 	}
 
 	public int[] oddElementsMultiplyByTwo(CustomArray customArray) {
@@ -53,31 +52,30 @@ public class CustomArrayActionIntStream {
 		return arr;
 	}
 
-	public double getAverageValue(CustomArray customArray) throws NotFoundException {
+	public double averageValue(CustomArray customArray) throws ResourceException {
 		int[] array = customArray.getArray();
+		if (array.length == 0) {
+			logger.error(ARRAY_IS_EMPTY);
+			throw new ResourceException(ARRAY_IS_EMPTY);
+		}
 		IntStream stream = IntStream.of(array);
 		OptionalDouble obj = stream.average();
-		if (obj.isPresent()) {
-			return obj.getAsDouble();
-		} else {
-			logger.error("average is missing");
-			throw new NotFoundException("average is missing");
-		}
+		return obj.getAsDouble();
 	}
 
-	public int getSum(CustomArray customArray) {
+	public int sum(CustomArray customArray) {
 		int[] array = customArray.getArray();
 		IntStream stream = IntStream.of(array);
 		return stream.sum();
 	}
 
-	public int getNumberPositiveElements(CustomArray customArray) {
+	public int numberPositiveElements(CustomArray customArray) {
 		int[] array = customArray.getArray();
 		IntStream stream = IntStream.of(array);
 		return (int) stream.filter(e -> e > 0).count();
 	}
 
-	public int getNumberNegativeElements(CustomArray customArray) {
+	public int numberNegativeElements(CustomArray customArray) {
 		int[] array = customArray.getArray();
 		IntStream stream = IntStream.of(array);
 		return (int) stream.filter(e -> e < 0).count();
