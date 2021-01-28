@@ -9,32 +9,31 @@ import org.apache.logging.log4j.Logger;
 
 import com.github.andreyshcherbin.entity.CustomArray;
 import com.github.andreyshcherbin.exception.ResourceException;
+import com.github.andreyshcherbin.validation.CustomArrayValidator;
 
 public class CustomArrayActionIntStream {
 
 	private static Logger logger = LogManager.getLogger();
-	private static final String ARRAY_IS_EMPTY = "array is empty";  
+	private static final String ARRAY_IS_EMPTY = "array is empty";
 
-	public int findMinElement(CustomArray customArray) throws ResourceException {
+	public OptionalInt findMinElement(CustomArray customArray) {
 		int[] array = customArray.getArray();
-		if (array.length == 0) {
-			logger.error(ARRAY_IS_EMPTY);
-			throw new ResourceException(ARRAY_IS_EMPTY);
+		if (CustomArrayValidator.isEmpty(customArray)) {
+			logger.info(ARRAY_IS_EMPTY);
+			return OptionalInt.empty();
 		}
 		IntStream stream = IntStream.of(array);
-		OptionalInt obj = stream.min();
-		return obj.getAsInt();
+		return stream.min();
 	}
 
-	public int findMaxElement(CustomArray customArray) throws ResourceException {
+	public OptionalInt findMaxElement(CustomArray customArray) {
 		int[] array = customArray.getArray();
-		if (array.length == 0) {
-			logger.error(ARRAY_IS_EMPTY);
-			throw new ResourceException(ARRAY_IS_EMPTY);
+		if (CustomArrayValidator.isEmpty(customArray)) {
+			logger.info(ARRAY_IS_EMPTY);
+			return OptionalInt.empty();
 		}
 		IntStream stream = IntStream.of(array);
-		OptionalInt obj = stream.max();
-		return obj.getAsInt();
+		return stream.max();
 	}
 
 	public int[] oddElementsMultiplyByTwo(CustomArray customArray) {
@@ -52,15 +51,14 @@ public class CustomArrayActionIntStream {
 		return arr;
 	}
 
-	public double calculateAverageValue(CustomArray customArray) throws ResourceException {
+	public OptionalDouble calculateAverageValue(CustomArray customArray) {
 		int[] array = customArray.getArray();
-		if (array.length == 0) {
-			logger.error(ARRAY_IS_EMPTY);
-			throw new ResourceException(ARRAY_IS_EMPTY);
+		if (CustomArrayValidator.isEmpty(customArray)) {
+			logger.info(ARRAY_IS_EMPTY);
+			return OptionalDouble.empty();
 		}
 		IntStream stream = IntStream.of(array);
-		OptionalDouble obj = stream.average();
-		return obj.getAsDouble();
+		return stream.average();
 	}
 
 	public int calculateSum(CustomArray customArray) {

@@ -1,8 +1,11 @@
 package test.github.andreyshcherbin.action;
 
-import static org.testng.Assert.assertEquals;
-import static org.testng.Assert.assertTrue;
+import static org.testng.Assert.*;
 import java.util.Arrays;
+import java.util.Optional;
+import java.util.OptionalDouble;
+import java.util.OptionalInt;
+
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.DataProvider;
@@ -27,17 +30,17 @@ public class CustomArrayActionIntStreamTest {
 	}
 	
 	@Test(dataProvider = "arrays_min")
-	public void testCustomArrayActionIntStreamMinElement(int[] array, int expectedValue) throws ResourceException {
+	public void testCustomArrayActionIntStreamMinElement(int[] array, OptionalInt expectedValue) {
 		customArray.setArray(array);		
-		int actualValue = customArrayActionIntStream.findMinElement(customArray);
+		OptionalInt actualValue = customArrayActionIntStream.findMinElement(customArray);
 		assertEquals(actualValue, expectedValue);		
 	}
 	
 	@Test(dataProvider = "arrays_max")
-	public void testCustomArrayActionIntStreamMaxElement(int[] array, int expectedValue) throws ResourceException {
+	public void testCustomArrayActionIntStreamMaxElement(int[] array, OptionalInt expectedValue) {
 		customArray.setArray(array);		
-		int actualValue = customArrayActionIntStream.findMaxElement(customArray);
-		assertEquals(actualValue, expectedValue);		
+		OptionalInt actualValue = customArrayActionIntStream.findMaxElement(customArray);
+		assertEquals(actualValue, expectedValue);			
 	}
 	
 	@Test(dataProvider = "arrays_OddElementsMultiplyByTwo")
@@ -49,10 +52,10 @@ public class CustomArrayActionIntStreamTest {
 	}
 	
 	@Test(dataProvider = "arrays_averageValue")
-	public void testCustomArrayActionIntStreamAverageValue(int[] array, double expectedValue) throws ResourceException {
+	public void testCustomArrayActionIntStreamAverageValue(int[] array, OptionalDouble expectedValue) {
 		customArray.setArray(array);		
-		double actualValue = customArrayActionIntStream.calculateAverageValue(customArray);
-		assertEquals(actualValue, expectedValue, 0.001);				
+		OptionalDouble actualValue = customArrayActionIntStream.calculateAverageValue(customArray);
+		assertEquals(actualValue, expectedValue);						
 	}
 	
 	@Test(dataProvider = "arrays_sum")
@@ -78,14 +81,14 @@ public class CustomArrayActionIntStreamTest {
 
 	@DataProvider(name = "arrays_min")
 	public Object[] createDataMin() {
-		return new Object[][] { { new int[] {1, -100, 3, 4, 5}, -100 },
-			                    { new int[] { 1, 2, -20, 5, 10 }, -20 } };
+		return new Object[][] { { new int[] {1, -100, 3, 4, 5}, OptionalInt.of(-100) },
+			                    { new int[] { 1, 2, -20, 5, 10 }, OptionalInt.of(-20) } };
 	}
 	
 	@DataProvider(name = "arrays_max")
 	public Object[] createDataMax() {
-		return new Object[][] { { new int[] {1, -100, 3, 4, 999}, 999 },
-			                    { new int[] { 1, 2, -20, 5, 10 } , 10 } };
+		return new Object[][] { { new int[] {1, -100, 3, 4, 999}, OptionalInt.of(999) },
+			                    { new int[] { 1, 2, -20, 5, 10 } , OptionalInt.of(10) } };
 	}
 	
 	@DataProvider(name = "arrays_OddElementsMultiplyByTwo")
@@ -96,8 +99,8 @@ public class CustomArrayActionIntStreamTest {
 	
 	@DataProvider(name = "arrays_averageValue")
 	public Object[] createDataAverageValue() {
-		return new Object[][] { { new int[] { 1, 3, -3} , 0.333 },
-			                    { new int[] { 1, 2, -20, 5, 10 } , -0.4 } };
+		return new Object[][] { { new int[] { } , OptionalDouble.empty() },
+			                    { new int[] { 1, 2, -20, 5, 10 } , OptionalDouble.of(-0.4) } };
 	}
 	
 	@DataProvider(name = "arrays_sum")
