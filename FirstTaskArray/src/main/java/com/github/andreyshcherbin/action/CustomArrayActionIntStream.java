@@ -52,7 +52,7 @@ public class CustomArrayActionIntStream {
 		return arr;
 	}
 
-	public double findAverageValue(CustomArray customArray) throws ResourceException {
+	public double calculateAverageValue(CustomArray customArray) throws ResourceException {
 		int[] array = customArray.getArray();
 		if (array.length == 0) {
 			logger.error(ARRAY_IS_EMPTY);
@@ -63,7 +63,7 @@ public class CustomArrayActionIntStream {
 		return obj.getAsDouble();
 	}
 
-	public int findSum(CustomArray customArray) {
+	public int calculateSum(CustomArray customArray) {
 		int[] array = customArray.getArray();
 		IntStream stream = IntStream.of(array);
 		return stream.sum();

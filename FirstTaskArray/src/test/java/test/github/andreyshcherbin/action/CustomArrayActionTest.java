@@ -4,7 +4,8 @@ import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
 import java.util.Arrays;
 import org.testng.annotations.*;
-import com.github.andreyshcherbin.action.CustomArrayAction;
+import com.github.andreyshcherbin.action.CustomArrayCalculate;
+import com.github.andreyshcherbin.action.CustomArrayFind;
 import com.github.andreyshcherbin.action.CustomArraySort;
 import com.github.andreyshcherbin.entity.CustomArray;
 import test.github.andreyshcherbin.TestListener;
@@ -12,15 +13,18 @@ import test.github.andreyshcherbin.TestListener;
 @Listeners(TestListener.class)
 public class CustomArrayActionTest {
 
-	CustomArrayAction customArrayAction;
+	CustomArrayCalculate customArrayCalculate;
+	CustomArrayFind customArrayFind;	
 	CustomArraySort customArraySort;
 	CustomArray customArray;
 	
 	@BeforeClass
 	public void setUp() {
-		customArrayAction = new CustomArrayAction();
+		
 		customArray = new CustomArray();
 		customArraySort = new CustomArraySort();
+		customArrayFind = new CustomArrayFind();
+		customArrayCalculate = new CustomArrayCalculate();
 	}
 
 	@Test(dataProvider = "arrays")
@@ -33,21 +37,21 @@ public class CustomArrayActionTest {
 	@Test(dataProvider = "arrays_min")
 	public void testCustomArrayActionMinElement(int[] array, int expectedValue) {
 		customArray.setArray(array);
-		int actualValue = customArrayAction.findMinElement(customArray);
+		int actualValue = customArrayFind.findMinElement(customArray);
 		assertEquals(actualValue, expectedValue);
 	}
 	
 	@Test(dataProvider = "arrays_max")
 	public void testCustomArrayActionMaxElement(int[] array, int expectedValue) {
 		customArray.setArray(array);
-		int actualValue = customArrayAction.findMaxElement(customArray);
+		int actualValue = customArrayFind.findMaxElement(customArray);
 		assertEquals(actualValue,expectedValue);
 	}
 	
 	@Test(dataProvider = "arrays_OddElementsMultiplyByTwo")
 	public void testCustomArrayActionOddElementsMultiplyByTwo(int[] array,int[] expectedValue) {
 		customArray.setArray(array);		
-		int[] actual = customArrayAction.oddElementsMultiplyByTwo(customArray);
+		int[] actual = customArrayCalculate.oddElementsMultiplyByTwo(customArray);
 		boolean result = Arrays.equals(actual, expectedValue);
 		assertTrue(result);
 	}
@@ -55,28 +59,28 @@ public class CustomArrayActionTest {
 	@Test(dataProvider = "arrays_averageValue")
 	public void testCustomArrayActionAverageValue(int[] array, double expectedValue) {
 		customArray.setArray(array);
-		double actualValue = customArrayAction.findAverageValue(customArray);
+		double actualValue = customArrayCalculate.calculateAverageValue(customArray);
 		assertEquals(actualValue,expectedValue, 0.001);		
 	}
 	
 	@Test(dataProvider = "arrays_sum")
 	public void testCustomArrayActionSum(int[] array, int expectedValue) {
 		customArray.setArray(array);
-		int actualValue = customArrayAction.findSum(customArray);
+		int actualValue = customArrayCalculate.calculateSum(customArray);
 		assertEquals(actualValue,expectedValue);		
 	}
 	
 	@Test(dataProvider = "arrays_numberPositiveElements")
 	public void testCustomArrayActionNumberPositiveElements(int[] array, int expectedValue) {
 		customArray.setArray(array);
-		int actualValue = customArrayAction.findNumberPositiveElements(customArray);
+		int actualValue = customArrayFind.findNumberPositiveElements(customArray);
 		assertEquals(actualValue,expectedValue);		
 	}
 	
 	@Test(dataProvider = "arrays_numberNegativeElements")
 	public void testCustomArrayActionNumberNegativeElements(int[] array, int expectedValue) {
 		customArray.setArray(array);
-		int actualValue = customArrayAction.findNumberNegativeElements(customArray);
+		int actualValue = customArrayFind.findNumberNegativeElements(customArray);
 		assertEquals(actualValue,expectedValue);		
 	}
 	
@@ -183,7 +187,9 @@ public class CustomArrayActionTest {
 	
 	@AfterClass
 	public void tierDown(){
-		customArrayAction = null;
 		customArray = null;
+		customArraySort = null;
+		customArrayFind = null;
+		customArrayCalculate = null;
 	}
 }

@@ -51,14 +51,14 @@ public class CustomArrayActionIntStreamTest {
 	@Test(dataProvider = "arrays_averageValue")
 	public void testCustomArrayActionIntStreamAverageValue(int[] array, double expectedValue) throws ResourceException {
 		customArray.setArray(array);		
-		double actualValue = customArrayActionIntStream.findAverageValue(customArray);
+		double actualValue = customArrayActionIntStream.calculateAverageValue(customArray);
 		assertEquals(actualValue, expectedValue, 0.001);				
 	}
 	
 	@Test(dataProvider = "arrays_sum")
 	public void testCustomArrayActionSum(int[] array, int expectedValue) {
 		customArray.setArray(array);
-		int actualValue = customArrayActionIntStream.findSum(customArray);
+		int actualValue = customArrayActionIntStream.calculateSum(customArray);
 		assertEquals(actualValue, expectedValue);		
 	}
 	
