@@ -78,6 +78,14 @@ public class CustomArrayActionIntStreamTest {
 		int actualValue = customArrayActionIntStream.findNumberNegativeElements(customArray);
 		assertEquals(actualValue, expectedValue);		
 	}
+	
+	@Test(dataProvider = "arrays_sortStream")
+	public void testCustomArrayActionSortStream(int[] array, int[] expectedValue) {
+		customArray.setArray(array);
+		int[] actual = customArrayActionIntStream.sortStream(customArray);
+		boolean result = Arrays.equals(actual, expectedValue);
+		assertTrue(result);		
+	}
 
 	@DataProvider(name = "arrays_min")
 	public Object[] createDataMin() {
@@ -119,6 +127,12 @@ public class CustomArrayActionIntStreamTest {
 	public Object[] createDataNumberNegativeElements() {
 		return new Object[][] { { new int[] { 1, 2, 3, -1 } , 1 },
 			                    { new int[] { 1, 2, -20, 5, 10 } , 1 } };
+	}
+	 
+	@DataProvider(name = "arrays_sortStream")
+	public Object[] createDataSortStream() {
+		return new Object[][] { { new int[] { 1, 2, 5, -1 } , new int[] { -1, 1, 2, 5 }},
+			                    { new int[] { -9, 8, 7, 20 } , new int[] { -9, 7, 8, 20 }} };
 	}
 	
 	@AfterClass

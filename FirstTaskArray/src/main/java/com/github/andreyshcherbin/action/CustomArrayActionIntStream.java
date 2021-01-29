@@ -13,13 +13,12 @@ import com.github.andreyshcherbin.validation.CustomArrayValidator;
 
 public class CustomArrayActionIntStream {
 
-	private static Logger logger = LogManager.getLogger();
-	private static final String ARRAY_IS_EMPTY = "array is empty";
+	private static Logger logger = LogManager.getLogger();	
 
 	public OptionalInt findMinElement(CustomArray customArray) {
 		int[] array = customArray.getArray();
 		if (CustomArrayValidator.isEmpty(customArray)) {
-			logger.info(ARRAY_IS_EMPTY);
+			logger.info("array is empty");
 			return OptionalInt.empty();
 		}
 		IntStream stream = IntStream.of(array);
@@ -29,7 +28,7 @@ public class CustomArrayActionIntStream {
 	public OptionalInt findMaxElement(CustomArray customArray) {
 		int[] array = customArray.getArray();
 		if (CustomArrayValidator.isEmpty(customArray)) {
-			logger.info(ARRAY_IS_EMPTY);
+			logger.info("array is empty");
 			return OptionalInt.empty();
 		}
 		IntStream stream = IntStream.of(array);
@@ -54,7 +53,7 @@ public class CustomArrayActionIntStream {
 	public OptionalDouble calculateAverageValue(CustomArray customArray) {
 		int[] array = customArray.getArray();
 		if (CustomArrayValidator.isEmpty(customArray)) {
-			logger.info(ARRAY_IS_EMPTY);
+			logger.info("arrays is empty");
 			return OptionalDouble.empty();
 		}
 		IntStream stream = IntStream.of(array);
@@ -78,5 +77,10 @@ public class CustomArrayActionIntStream {
 		IntStream stream = IntStream.of(array);
 		return (int) stream.filter(e -> e < 0).count();
 	}
-
+	
+	public int[] sortStream(CustomArray customArray) {
+		int[] array = customArray.getArray();
+		IntStream stream = IntStream.of(array);
+		return stream.sorted().toArray();		
+	}
 }

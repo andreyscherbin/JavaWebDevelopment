@@ -29,8 +29,8 @@ public class DataReader {
 				throw new ResourceException(e);
 			}
 		} else {
-			logger.error("resource exception");
-			throw new ResourceException("resource exception");
+			logger.error("resource exception {}",filename);
+			throw new ResourceException("resource exception: " + filename);
 		}
 		return dataFromFile;
 	}

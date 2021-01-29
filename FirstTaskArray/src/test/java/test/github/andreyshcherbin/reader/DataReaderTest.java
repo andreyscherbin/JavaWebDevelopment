@@ -44,7 +44,7 @@ public class DataReaderTest {
 			reader.read(TEST_FILE_ERROR);			
 			fail("Test for read " + TEST_FILE_ERROR + " should have thrown a ResourceException");
 		} catch (ResourceException e) {
-			assertEquals(e.getMessage(), "resource exception");
+			assertEquals(e.getMessage(), "resource exception: " + TEST_FILE_ERROR);
 		}
 	}
 	
