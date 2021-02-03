@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema"
+	targetNamespace="./TouristVouchers"
+	xmlns:tns="./TouristVouchers"
+	elementFormDefault="qualified">
+
+	<element name="TouristVouchers">
+		<complexType>
+			<sequence>
+				<element name="TouristVoucher" type="tns:TouristVoucher"
+					minOccurs="16" maxOccurs="unbounded" />
+			</sequence>
+		</complexType>
+	</element>
+
+	<complexType name="TouristVoucher">
+		<sequence>
+			<element name="numberVoucher" type="tns:NumberVoucher" />
+			<element name="country" type="string" />
+			<element name="numberDays" type="positiveInteger" />
+			<element name="numberNights" type="positiveInteger" />
+			<element name="cost" type="positiveInteger" />
+			<element name="hotelCharacteristic"
+				type="tns:HotelCharacteristic" />
+			<element name="date" type="dateTime" />
+		</sequence>
+		<attribute name="transport" use="required">
+			<simpleType>
+				<restriction base="string">
+					<enumeration value="air"></enumeration>
+					<enumeration value="auto"></enumeration>
+					<enumeration value="liner"></enumeration>
+					<enumeration value="railway"></enumeration>
+				</restriction>
+			</simpleType>
+		</attribute>
+		<attribute name="type" use="required">
+			<simpleType>
+				<restriction base="string">
+					<enumeration value="weekend"></enumeration>
+					<enumeration value="excursion"></enumeration>
+					<enumeration value="rest"></enumeration>					
+					<enumeration value="pilgrimage"></enumeration>
+				</restriction>
+			</simpleType>
+		</attribute>
+	</complexType>
+
+	<simpleType name="NumberVoucher">
+		<restriction base="ID">
+			<pattern value="([A0-9]){10}" />
+		</restriction>
+	</simpleType>
+
+	<complexType name="HotelCharacteristic">
+		<sequence>
+			<element name="stars" type="tns:Stars" />
+			<element name="isFood" type="boolean" />
+			<element name="isTv" type="boolean" />
+			<element name="isConditioner" type="boolean" />
+			<element name="numberPlace" type="tns:NumberPlace" />
+		</sequence>
+		<attribute name="typeFood" use="optional" default="HB">
+			<simpleType>
+				<restriction base="string">
+					<enumeration value="HB"></enumeration>
+					<enumeration value="BB"></enumeration>
+					<enumeration value="AI"></enumeration>					
+				</restriction>
+			</simpleType>
+		</attribute>
+	</complexType>
+
+	<simpleType name="Stars">
+		<restriction base="positiveInteger">
+			<maxInclusive value="5" />
+			<minInclusive value="1" />
+		</restriction>
+	</simpleType>
+
+	<simpleType name="NumberPlace">
+		<restriction base="positiveInteger">
+			<maxInclusive value="3" />
+			<minInclusive value="1" />
+		</restriction>
+	</simpleType>
+
+</schema>

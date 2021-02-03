@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tns:TouristVouchers xmlns:tns="./TouristVouchers" 
+                     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+                     xsi:schemaLocation="./TouristVouchers TouristVouchers.xsd ">
+  
+  <tns:TouristVoucher transport="air" type="rest">
+    <tns:numberVoucher>A999999999</tns:numberVoucher>
+    <tns:country>SPAIN</tns:country>
+    <tns:numberDays>5</tns:numberDays>
+    <tns:numberNights>5</tns:numberNights>
+    <tns:cost>100</tns:cost>
+    <tns:hotelCharacteristic >
+      <tns:stars>5</tns:stars>
+      <tns:isFood>false</tns:isFood>
+      <tns:isTv>false</tns:isTv>
+      <tns:isConditioner>false</tns:isConditioner>
+      <tns:numberPlace>1</tns:numberPlace>
+    </tns:hotelCharacteristic>
+    <tns:date>2021-01-30T23:43:00</tns:date>
+  </tns:TouristVoucher>
+  
+  <tns:TouristVoucher transport="air" type="rest">
+    <tns:numberVoucher>A999999998</tns:numberVoucher>
+    <tns:country>BRAZIL</tns:country>
+    <tns:numberDays>10</tns:numberDays>
+    <tns:numberNights>10</tns:numberNights>
+    <tns:cost>200</tns:cost>
+    <tns:hotelCharacteristic typeFood="HB">
+      <tns:stars>3</tns:stars>
+      <tns:isFood>true</tns:isFood>
+      <tns:isTv>true</tns:isTv>
+      <tns:isConditioner>true</tns:isConditioner>
+      <tns:numberPlace>1</tns:numberPlace>
+    </tns:hotelCharacteristic>
+    <tns:date>2021-01-31T22:43:00</tns:date>    
+  </tns:TouristVoucher>
+  
+  <tns:TouristVoucher transport="air" type="excursion">
+    <tns:numberVoucher>A999999997</tns:numberVoucher>
+    <tns:country>JAPAN</tns:country>
+    <tns:numberDays>10</tns:numberDays>
+    <tns:numberNights>10</tns:numberNights>
+    <tns:cost>500</tns:cost>
+    <tns:hotelCharacteristic typeFood="HB">
+      <tns:stars>4</tns:stars>
+      <tns:isFood>true</tns:isFood>
+      <tns:isTv>true</tns:isTv>
+      <tns:isConditioner>true</tns:isConditioner>
+      <tns:numberPlace>3</tns:numberPlace>
+    </tns:hotelCharacteristic>
+    <tns:date>2021-03-31T19:43:00</tns:date>
+  </tns:TouristVoucher>
+  
+  <tns:TouristVoucher transport="auto" type="weekend">
+    <tns:numberVoucher>A999999996</tns:numberVoucher>
+    <tns:country>RUSSIA</tns:country>
+    <tns:numberDays>2</tns:numberDays>
+    <tns:numberNights>2</tns:numberNights>
+    <tns:cost>50</tns:cost>
+    <tns:hotelCharacteristic typeFood="HB">
+      <tns:stars>3</tns:stars>
+      <tns:isFood>true</tns:isFood>
+      <tns:isTv>true</tns:isTv>
+      <tns:isConditioner>true</tns:isConditioner>
+      <tns:numberPlace>1</tns:numberPlace>
+    </tns:hotelCharacteristic>
+    <tns:date>2021-04-28T17:43:00</tns:date>
+  </tns:TouristVoucher>
+  
+  <tns:TouristVoucher transport="auto" type="pilgrimage">
+    <tns:numberVoucher>A999999995</tns:numberVoucher>
+    <tns:country>TURKEY</tns:country>
+    <tns:numberDays>365</tns:numberDays>
+    <tns:numberNights>365</tns:numberNights>
+    <tns:cost>10000</tns:cost>
+    <tns:hotelCharacteristic>
+      <tns:stars>1</tns:stars>
+      <tns:isFood>false</tns:isFood>
+      <tns:isTv>false</tns:isTv>
+      <tns:isConditioner>false</tns:isConditioner>
+      <tns:numberPlace>1</tns:numberPlace>
+    </tns:hotelCharacteristic>
+    <tns:date>2021-04-28T17:43:00</tns:date>
+  </tns:TouristVoucher>
+  
+  <tns:TouristVoucher transport="air" type="excursion">
+    <tns:numberVoucher>A999999994</tns:numberVoucher>
+    <tns:country>USA</tns:country>
+    <tns:numberDays>10</tns:numberDays>
+    <tns:numberNights>10</tns:numberNights>
+    <tns:cost>9999999</tns:cost>
+    <tns:hotelCharacteristic typeFood="AI">
+      <tns:stars>4</tns:stars>
+      <tns:isFood>true</tns:isFood>
+      <tns:isTv>true</tns:isTv>
+      <tns:isConditioner>true</tns:isConditioner>
+      <tns:numberPlace>3</tns:numberPlace>
+    </tns:hotelCharacteristic>
+    <tns:date>2025-04-28T18:43:00</tns:date>
+  </tns:TouristVoucher>
+  
+  <tns:TouristVoucher transport="air" type="rest">
+    <tns:numberVoucher>A999999993</tns:numberVoucher>
+    <tns:country>SWEDEN</tns:country>
+    <tns:numberDays>20</tns:numberDays>
+    <tns:numberNights>20</tns:numberNights>
+    <tns:cost>100000</tns:cost>
+    <tns:hotelCharacteristic>
+      <tns:stars>5</tns:stars>
+      <tns:isFood>false</tns:isFood>
+      <tns:isTv>false</tns:isTv>
+      <tns:isConditioner>true</tns:isConditioner>
+      <tns:numberPlace>1</tns:numberPlace>
+    </tns:hotelCharacteristic>
+    <tns:date>2026-01-28T06:00:00</tns:date>
+  </tns:TouristVoucher>
+  
+  <tns:TouristVoucher transport="railway" type="excursion">
+    <tns:numberVoucher>A999999992</tns:numberVoucher>
+    <tns:country>SINGAPORE</tns:country>
+    <tns:numberDays>20</tns:numberDays>
+    <tns:numberNights>20</tns:numberNights>
+    <tns:cost>1000000</tns:cost>
+    <tns:hotelCharacteristic typeFood="BB">
+      <tns:stars>4</tns:stars>
+      <tns:isFood>true</tns:isFood>
+      <tns:isTv>true</tns:isTv>
+      <tns:isConditioner>true</tns:isConditioner>
+      <tns:numberPlace>2</tns:numberPlace>
+    </tns:hotelCharacteristic>
+    <tns:date>2023-04-28T07:00:00</tns:date>
+  </tns:TouristVoucher>
+  
+  <tns:TouristVoucher transport="air" type="weekend">
+    <tns:numberVoucher>A999999991</tns:numberVoucher>
+    <tns:country>ITALY</tns:country>
+    <tns:numberDays>5</tns:numberDays>
+    <tns:numberNights>5</tns:numberNights>
+    <tns:cost>20000</tns:cost>
+    <tns:hotelCharacteristic typeFood="AI">
+      <tns:stars>5</tns:stars>
+      <tns:isFood>true</tns:isFood>
+      <tns:isTv>true</tns:isTv>
+      <tns:isConditioner>true</tns:isConditioner>
+      <tns:numberPlace>1</tns:numberPlace>
+    </tns:hotelCharacteristic>
+    <tns:date>2022-06-28T00:00:00</tns:date>
+  </tns:TouristVoucher>
+  
+  <tns:TouristVoucher transport="railway" type="weekend">
+    <tns:numberVoucher>A999999990</tns:numberVoucher>
+    <tns:country>GERMANY</tns:country>
+    <tns:numberDays>20</tns:numberDays>
+    <tns:numberNights>20</tns:numberNights>
+    <tns:cost>999999</tns:cost>
+    <tns:hotelCharacteristic typeFood="BB">
+      <tns:stars>4</tns:stars>
+      <tns:isFood>true</tns:isFood>
+      <tns:isTv>true</tns:isTv>
+      <tns:isConditioner>true</tns:isConditioner>
+      <tns:numberPlace>2</tns:numberPlace>
+    </tns:hotelCharacteristic>
+    <tns:date>2026-07-28T04:00:00</tns:date>
+  </tns:TouristVoucher>
+  
+  <tns:TouristVoucher transport="liner" type="rest">
+    <tns:numberVoucher>A999999989</tns:numberVoucher>
+    <tns:country>JAMAICA</tns:country>
+    <tns:numberDays>2</tns:numberDays>
+    <tns:numberNights>2</tns:numberNights>
+    <tns:cost>444</tns:cost>
+    <tns:hotelCharacteristic>
+      <tns:stars>1</tns:stars>
+      <tns:isFood>false</tns:isFood>
+      <tns:isTv>false</tns:isTv>
+      <tns:isConditioner>false</tns:isConditioner>
+      <tns:numberPlace>3</tns:numberPlace>
+    </tns:hotelCharacteristic>
+    <tns:date>2025-12-31T13:00:00</tns:date>
+  </tns:TouristVoucher>
+  
+  <tns:TouristVoucher transport="air" type="pilgrimage">
+    <tns:numberVoucher>A999999988</tns:numberVoucher>
+    <tns:country>GREECE</tns:country>
+    <tns:numberDays>20</tns:numberDays>
+    <tns:numberNights>20</tns:numberNights>
+    <tns:cost>20</tns:cost>
+    <tns:hotelCharacteristic>
+      <tns:stars>1</tns:stars>
+      <tns:isFood>false</tns:isFood>
+      <tns:isTv>false</tns:isTv>
+      <tns:isConditioner>false</tns:isConditioner>
+      <tns:numberPlace>2</tns:numberPlace>
+    </tns:hotelCharacteristic>
+    <tns:date>2030-11-30T11:00:00</tns:date>
+  </tns:TouristVoucher>
+  
+  <tns:TouristVoucher transport="auto" type="excursion">
+    <tns:numberVoucher>A999999987</tns:numberVoucher>
+    <tns:country>FRANCE</tns:country>
+    <tns:numberDays>15</tns:numberDays>
+    <tns:numberNights>15</tns:numberNights>
+    <tns:cost>10000</tns:cost>
+    <tns:hotelCharacteristic>
+      <tns:stars>1</tns:stars>
+      <tns:isFood>false</tns:isFood>
+      <tns:isTv>false</tns:isTv>
+      <tns:isConditioner>false</tns:isConditioner>
+      <tns:numberPlace>2</tns:numberPlace>
+    </tns:hotelCharacteristic>
+    <tns:date>2028-06-30T06:00:00</tns:date>
+  </tns:TouristVoucher>
+  
+  <tns:TouristVoucher transport="air" type="rest">
+    <tns:numberVoucher>A999999986</tns:numberVoucher>
+    <tns:country>DENMARK</tns:country>
+    <tns:numberDays>20</tns:numberDays>
+    <tns:numberNights>20</tns:numberNights>
+    <tns:cost>9999999</tns:cost>
+    <tns:hotelCharacteristic typeFood="AI">
+      <tns:stars>5</tns:stars>
+      <tns:isFood>true</tns:isFood>
+      <tns:isTv>true</tns:isTv>
+      <tns:isConditioner>true</tns:isConditioner>
+      <tns:numberPlace>3</tns:numberPlace>
+    </tns:hotelCharacteristic>
+    <tns:date>2030-04-30T00:00:00</tns:date>
+  </tns:TouristVoucher>
+  
+  <tns:TouristVoucher transport="auto" type="pilgrimage">
+    <tns:numberVoucher>A999999985</tns:numberVoucher>
+    <tns:country>ISRAEL</tns:country>
+    <tns:numberDays>999</tns:numberDays>
+    <tns:numberNights>999</tns:numberNights>
+    <tns:cost>30</tns:cost>
+    <tns:hotelCharacteristic>
+      <tns:stars>1</tns:stars>
+      <tns:isFood>false</tns:isFood>
+      <tns:isTv>false</tns:isTv>
+      <tns:isConditioner>false</tns:isConditioner>
+      <tns:numberPlace>1</tns:numberPlace>
+    </tns:hotelCharacteristic>
+    <tns:date>2100-01-01T00:00:00</tns:date>
+  </tns:TouristVoucher>
+  
+  <tns:TouristVoucher transport="railway" type="weekend">
+    <tns:numberVoucher>A999999984</tns:numberVoucher>
+    <tns:country>FINLAND</tns:country>
+    <tns:numberDays>5</tns:numberDays>
+    <tns:numberNights>5</tns:numberNights>
+    <tns:cost>9000</tns:cost>
+    <tns:hotelCharacteristic typeFood="BB">
+      <tns:stars>5</tns:stars>
+      <tns:isFood>true</tns:isFood>
+      <tns:isTv>true</tns:isTv>
+      <tns:isConditioner>true</tns:isConditioner>
+      <tns:numberPlace>3</tns:numberPlace>
+    </tns:hotelCharacteristic>
+    <tns:date>2027-05-23T06:00:00</tns:date>
+  </tns:TouristVoucher>
+</tns:TouristVouchers>
