@@ -33,8 +33,8 @@ public class TouristVouchersSAXBuilder extends AbstractTouristVouchersBuilder {
 			reader = XMLReaderFactory.createXMLReader();
 			reader.setContentHandler(touristVoucherHandler);
 		} catch (SAXException e) {
-			logger.error("ошибка SAX парсера: {}", e);
-			throw new ParserException("ошибка SAX парсера: ", e);			
+			logger.error("РѕС€РёР±РєР° SAX РїР°СЂСЃРµСЂР°: {}", e);
+			throw new ParserException("РѕС€РёР±РєР° SAX РїР°СЂСЃРµСЂР°: ", e);			
 		}
 	}
 
@@ -47,11 +47,11 @@ public class TouristVouchersSAXBuilder extends AbstractTouristVouchersBuilder {
 		try {
 			reader.parse(fileName);
 		} catch (SAXException e) {
-			logger.error("ошибка SAX парсера: {}", e);
-			throw new ParserException("ошибка SAX парсера: ", e);
+			logger.error("РѕС€РёР±РєР° SAX РїР°СЂСЃРµСЂР°: {}", e);
+			throw new ParserException("РѕС€РёР±РєР° SAX РїР°СЂСЃРµСЂР°: ", e);
 		} catch (IOException e) {
-			logger.error("ошибка I/O потока: {}", e);
-			throw new ParserException("ошибка I/O потока: ", e);
+			logger.error("РѕС€РёР±РєР° I/O РїРѕС‚РѕРєР°: ", e);
+			throw new ParserException("РѕС€РёР±РєР° I/O РїРѕС‚РѕРєР° ", e);
 		}
 		touristVouchers = touristVoucherHandler.getTouristVouchers();
 	}
