@@ -13,7 +13,7 @@ import com.github.andreyshcherbin.validation.CustomArrayValidator;
 
 public class CustomArrayActionIntStream {
 
-	private static Logger logger = LogManager.getLogger();	
+	private static Logger logger = LogManager.getLogger();
 
 	public OptionalInt findMinElement(CustomArray customArray) {
 		int[] array = customArray.getArray();
@@ -38,14 +38,7 @@ public class CustomArrayActionIntStream {
 	public int[] oddElementsMultiplyByTwo(CustomArray customArray) {
 		int[] array = customArray.getArray();
 		IntStream stream = IntStream.of(array);
-
-		int[] arr = stream.map(intValue -> {
-			if (intValue % 2 != 0) {
-				return intValue * 2;
-			} else {
-				return intValue;
-			}
-		}).toArray();
+		int[] arr = stream.map(intValue -> (intValue % 2) != 0 ? intValue * 2 : intValue).toArray();
 		customArray.setArray(arr);
 		return arr;
 	}
@@ -77,10 +70,10 @@ public class CustomArrayActionIntStream {
 		IntStream stream = IntStream.of(array);
 		return (int) stream.filter(e -> e < 0).count();
 	}
-	
+
 	public int[] sortStream(CustomArray customArray) {
 		int[] array = customArray.getArray();
 		IntStream stream = IntStream.of(array);
-		return stream.sorted().toArray();		
+		return stream.sorted().toArray();
 	}
 }

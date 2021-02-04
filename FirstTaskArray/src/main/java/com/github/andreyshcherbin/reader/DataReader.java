@@ -13,15 +13,15 @@ import com.github.andreyshcherbin.exception.ResourceException;
 public class DataReader {
 
 	static Logger logger = LogManager.getLogger();
+	static final String DELIMETER = ",";
 
 	public String read(String filename) throws ResourceException {
 		String dataFromFile = null;
-		Path path = Paths.get(filename);
-		String delimeter = ",";
+		Path path = Paths.get(filename);		
 		if (Files.exists(path) && !Files.isDirectory(path) && Files.isReadable(path)) {
 			try {
 				dataFromFile = Files.lines(path)
-						            .reduce((s1, s2) -> s1 + delimeter + s2)
+						            .reduce((s1, s2) -> s1 + DELIMETER + s2)
 						            .orElse("empty");
 
 			} catch (IOException e) {
