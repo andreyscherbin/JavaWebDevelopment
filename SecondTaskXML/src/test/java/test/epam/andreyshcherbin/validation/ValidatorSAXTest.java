@@ -14,8 +14,8 @@ import org.testng.annotations.AfterClass;
 @Listeners(TestListener.class)
 public class ValidatorSAXTest {
 
-	private static final String TEST_XML = "data\\TouristVouchers.xml";
-	private static final String TEST_XSD = "data\\TouristVouchers.xsd";
+	private static final String TEST_XML = "data\\tourist_voucher.xml";
+	private static final String TEST_XSD = "data\\tourist_voucher.xsd";
 
 	private ValidatorSAX validatorSAX;
 

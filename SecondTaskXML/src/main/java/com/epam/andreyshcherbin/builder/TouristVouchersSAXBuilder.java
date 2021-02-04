@@ -1,7 +1,7 @@
 package com.epam.andreyshcherbin.builder;
 
 import java.io.IOException;
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.EnumSet;
 import java.util.HashSet;
 import java.util.Set;
@@ -12,12 +12,15 @@ import org.xml.sax.SAXException;
 import org.xml.sax.XMLReader;
 import org.xml.sax.helpers.DefaultHandler;
 import org.xml.sax.helpers.XMLReaderFactory;
+import com.epam.andreyshcherbin.entity.ExcursionVoucher;
 import com.epam.andreyshcherbin.entity.HotelCharacteristic;
+import com.epam.andreyshcherbin.entity.PiligrimageVoucher;
+import com.epam.andreyshcherbin.entity.RestVoucher;
 import com.epam.andreyshcherbin.entity.TouristVoucher;
 import com.epam.andreyshcherbin.exception.ParserException;
-import com.epam.andreyshcherbin.parsing.DateParser;
-import com.epam.andreyshcherbin.parsing.TouristVoucherEnum;
+import com.epam.andreyshcherbin.parsing.TouristVoucherTag;
 
+@SuppressWarnings("deprecation")
 public class TouristVouchersSAXBuilder extends AbstractTouristVouchersBuilder {
 
 	private static Logger logger = LogManager.getLogger();
@@ -31,7 +34,7 @@ public class TouristVouchersSAXBuilder extends AbstractTouristVouchersBuilder {
 			reader.setContentHandler(touristVoucherHandler);
 		} catch (SAXException e) {
 			logger.error("ошибка SAX парсера: {}", e);
-			throw new ParserException("ошибка SAX парсера: ", e);
+			throw new ParserException("ошибка SAX парсера: ", e);			
 		}
 	}
 
@@ -47,8 +50,8 @@ public class TouristVouchersSAXBuilder extends AbstractTouristVouchersBuilder {
 			logger.error("ошибка SAX парсера: {}", e);
 			throw new ParserException("ошибка SAX парсера: ", e);
 		} catch (IOException e) {
-			logger.error("ошибка I/О потока: {}", e);
-			throw new ParserException("ошибка I/О потока: ", e);
+			logger.error("ошибка I/O потока: {}", e);
+			throw new ParserException("ошибка I/O потока: ", e);
 		}
 		touristVouchers = touristVoucherHandler.getTouristVouchers();
 	}
@@ -56,13 +59,14 @@ public class TouristVouchersSAXBuilder extends AbstractTouristVouchersBuilder {
 	private static class TouristVoucherHandler extends DefaultHandler {
 
 		private Set<TouristVoucher> touristVouchers;
-		private TouristVoucher current = null;
-		private TouristVoucherEnum currentEnum = null;
-		private EnumSet<TouristVoucherEnum> withText;
+		private TouristVoucher current;
+		private TouristVoucherTag currentEnum;
+		private EnumSet<TouristVoucherTag> tagWithText;
+		private HotelCharacteristic hotelCharacteristic;
 
 		public TouristVoucherHandler() {
 			touristVouchers = new HashSet<TouristVoucher>();
-			withText = EnumSet.range(TouristVoucherEnum.NUMBERVOUCHER, TouristVoucherEnum.DATE);
+			tagWithText = EnumSet.range(TouristVoucherTag.NUMBER_VOUCHER, TouristVoucherTag.NUMBER_PLACE);
 		}
 
 		public Set<TouristVoucher> getTouristVouchers() {
@@ -70,35 +74,54 @@ public class TouristVouchersSAXBuilder extends AbstractTouristVouchersBuilder {
 		}
 
 		public void startElement(String uri, String localName, String qName, Attributes attrs) {
-			if ("TouristVoucher".equals(localName)) {
-				current = new TouristVoucher();
-				String transport = attrs.getValue(0);
+			TouristVoucherTag tag = TouristVoucherTag.valueOf(localName.toUpperCase());
+			String transport;
+			switch (tag) {
+			case REST_VOUCHER:
+				current = new RestVoucher();
+				transport = attrs.getValue(0);
 				current.setTransport(transport);
-				if (attrs.getLength() == 2) {
-					String type = attrs.getValue(1);
-					current.setType(type);
-				}
-			} else {
-				if ("hotelCharacteristic".equals(localName)) {
-					HotelCharacteristic hotelCharacteristic = current.getHotelCharacteristic();
+				break;
+			case EXCURSION_VOUCHER:
+				current = new ExcursionVoucher();
+				transport = attrs.getValue(0);
+				current.setTransport(transport);
+				break;
+			case PILIGRIMAGE_VOUCHER:
+				current = new PiligrimageVoucher();
+				transport = attrs.getValue(0);
+				current.setTransport(transport);
+				break;
+			case HOTEL_CHARACTERISTIC:
+				hotelCharacteristic = new HotelCharacteristic();
+				if (attrs.getLength() > 0) {
 					String typeFood = attrs.getValue(0);
-					if (typeFood != null) {
-						hotelCharacteristic.setTypeFood(typeFood);
-					} else {
-						hotelCharacteristic.setTypeFood("");
-					}
+					hotelCharacteristic.setTypeFood(typeFood);
+				} else {
+					hotelCharacteristic.setTypeFood("HB");
 				}
-				String name = localName.toUpperCase();
-				TouristVoucherEnum temp = TouristVoucherEnum.valueOf(name);
-				if (withText.contains(temp)) {
-					currentEnum = temp;
-				}
+				break;
+			}
+			String name = localName.toUpperCase();
+			TouristVoucherTag temp = TouristVoucherTag.valueOf(name);
+			if (tagWithText.contains(temp)) {
+				currentEnum = temp;
 			}
 		}
 
 		public void endElement(String uri, String localName, String qName) {
-			if ("TouristVoucher".equals(localName)) {
+			TouristVoucherTag tag = TouristVoucherTag.valueOf(localName.toUpperCase());
+			if (tag.equals(TouristVoucherTag.REST_VOUCHER) || tag.equals(TouristVoucherTag.EXCURSION_VOUCHER)
+					|| tag.equals(TouristVoucherTag.PILIGRIMAGE_VOUCHER)) {
 				touristVouchers.add(current);
+			}
+			if (tag.equals(TouristVoucherTag.HOTEL_CHARACTERISTIC)) {
+				if (current instanceof ExcursionVoucher) {
+					((ExcursionVoucher) current).addHotelCharacteristic(hotelCharacteristic);
+				}
+				if (current instanceof RestVoucher) {
+					((RestVoucher) current).addHotelCharacteristic(hotelCharacteristic);
+				}
 			}
 		}
 
@@ -106,19 +129,18 @@ public class TouristVouchersSAXBuilder extends AbstractTouristVouchersBuilder {
 			String tagText = new String(ch, start, length).trim();
 			boolean result;
 			if (currentEnum != null) {
-				HotelCharacteristic hotelCharacteristic = current.getHotelCharacteristic();
 				switch (currentEnum) {
-				case NUMBERVOUCHER:
+				case NUMBER_VOUCHER:
 					current.setNumberVoucher(tagText);
 					break;
 				case COUNTRY:
 					current.setCountry(tagText);
 					break;
-				case NUMBERDAYS:
+				case NUMBER_DAYS:
 					Integer numberDays = Integer.parseInt(tagText);
 					current.setNumberDays(numberDays);
 					break;
-				case NUMBERNIGHTS:
+				case NUMBER_NIGHTS:
 					Integer numberNights = Integer.parseInt(tagText);
 					current.setNumberNights(numberNights);
 					break;
@@ -127,38 +149,44 @@ public class TouristVouchersSAXBuilder extends AbstractTouristVouchersBuilder {
 					current.setCost(cost);
 					break;
 				case DATE:
-					Date voucherDate = null;
-					try {
-						voucherDate = DateParser.parseString(tagText);
-						current.setDate(voucherDate);
-					} catch (ParserException e) {
-						current.setDate(voucherDate);
+					LocalDateTime voucherDate = LocalDateTime.parse(tagText);
+					current.setDate(voucherDate);
+					break;
+				case CITY:
+					if (current instanceof ExcursionVoucher) {
+						((ExcursionVoucher) current).setCity(tagText);
+					}
+					if (current instanceof PiligrimageVoucher) {
+						((PiligrimageVoucher) current).setCity(tagText);
+					}
+					break;
+				case SHOWPLACE:
+					if (current instanceof ExcursionVoucher) {
+						((ExcursionVoucher) current).setShowplace(tagText);
 					}
 					break;
 				case STARS:
 					Integer stars = Integer.parseInt(tagText);
 					hotelCharacteristic.setStars(stars);
 					break;
-				case ISFOOD:
-					result = tagText.equals("true");
+				case IS_FOOD:
+					result = Boolean.parseBoolean(tagText);
 					hotelCharacteristic.setFood(result);
 					break;
-				case ISTV:
-					result = tagText.equals("true");
+				case IS_TV:
+					result = Boolean.parseBoolean(tagText);
 					hotelCharacteristic.setTV(result);
 					break;
-				case ISCONDITIONER:
-					result = tagText.equals("true");
+				case IS_CONDITIONER:
+					result = Boolean.parseBoolean(tagText);
 					hotelCharacteristic.setConditioner(result);
 					break;
-				case NUMBERPLACE:
+				case NUMBER_PLACE:
 					Integer numberPlace = Integer.parseInt(tagText);
 					hotelCharacteristic.setNumberPlace(numberPlace);
 					break;
 				default:
-					Class<TouristVoucherEnum> classObject = currentEnum.getDeclaringClass();
-					String name = currentEnum.name();
-					throw new EnumConstantNotPresentException(classObject, name);
+					throw new EnumConstantNotPresentException(currentEnum.getDeclaringClass(), currentEnum.name());
 				}
 			}
 			currentEnum = null;

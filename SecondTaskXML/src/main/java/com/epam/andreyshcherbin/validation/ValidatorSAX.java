@@ -8,16 +8,16 @@ import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 import javax.xml.validation.Schema;
 import javax.xml.validation.SchemaFactory;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.xml.sax.SAXException;
 
 public class ValidatorSAX {
-	
+
 	private static Logger logger = LogManager.getLogger();
-	
+
 	public boolean validateXML(String filename, String schemaname) {
+		boolean isValid = true;
 		Schema schema = null;
 		String language = XMLConstants.W3C_XML_SCHEMA_NS_URI;
 		SchemaFactory factory = SchemaFactory.newInstance(language);
@@ -26,18 +26,18 @@ public class ValidatorSAX {
 			SAXParserFactory spf = SAXParserFactory.newInstance();
 			spf.setSchema(schema);
 			SAXParser parser = spf.newSAXParser();
-			parser.parse(filename, new TouristVoucherErrorHandler());		
-			logger.info("{} is valid",filename);
-		} catch (ParserConfigurationException e) {			
-			logger.error("{} config error: {}",filename,e.getMessage());
-			return false;
-		} catch (SAXException e) {			
-			logger.error("{} SAX error: {}",filename,e.getMessage());
-			return false;
-		} catch (IOException e) {			
-			logger.error("I/O error: {}",e.getMessage());
-			return false;
+			parser.parse(filename, new TouristVoucherErrorHandler());
+			logger.info("{} is valid", filename);
+		} catch (ParserConfigurationException e) {
+			isValid = false;
+			logger.error("{} config error: {}", filename, e.getMessage());
+		} catch (SAXException e) {
+			isValid = false;
+			logger.error("{} SAX error: {}", filename, e.getMessage());
+		} catch (IOException e) {
+			isValid = false;
+			logger.error("I/O error: {}", e.getMessage());
 		}
-		return true;
+		return isValid;
 	}
 }

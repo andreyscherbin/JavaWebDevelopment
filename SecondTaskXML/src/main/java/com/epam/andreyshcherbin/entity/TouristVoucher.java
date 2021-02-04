@@ -1,37 +1,32 @@
 package com.epam.andreyshcherbin.entity;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 public class TouristVoucher implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	
-	private String transport;
-	private String type;
+
+	private String transport;	
 	private String numberVoucher;
 	private String country;
 	private int numberDays;
-	private int numberNights;	
-	private int cost;
-	private HotelCharacteristic hotelCharacteristic;
-	private Date date;
+	private int numberNights;
+	private int cost;	
+	private LocalDateTime date;
 
-	public TouristVoucher() {
-		hotelCharacteristic = new HotelCharacteristic();
-	}		
+	public TouristVoucher() {		
+	}
 
-	public TouristVoucher(String transport, String type, String numberVoucher, String country, int numberDays,
-			int numberNights, int cost, HotelCharacteristic hotelCharacteristic, Date date) {
+	public TouristVoucher(String transport, String numberVoucher, String country, int numberDays,
+			int numberNights, int cost, LocalDateTime date) {
 		super();
-		this.transport = transport;
-		this.type = type;
+		this.transport = transport;		
 		this.numberVoucher = numberVoucher;
 		this.country = country;
 		this.numberDays = numberDays;
 		this.numberNights = numberNights;
-		this.cost = cost;
-		this.hotelCharacteristic = hotelCharacteristic;
+		this.cost = cost;		
 		this.date = date;
 	}
 
@@ -42,15 +37,7 @@ public class TouristVoucher implements Serializable {
 	public void setNumberVoucher(String numberVoucher) {
 		this.numberVoucher = numberVoucher;
 	}
-
-	public String getType() {
-		return type;
-	}
-
-	public void setType(String type) {
-		this.type = type;
-	}
-
+	
 	public String getCountry() {
 		return country;
 	}
@@ -90,20 +77,12 @@ public class TouristVoucher implements Serializable {
 	public void setCost(int cost) {
 		this.cost = cost;
 	}
-
-	public HotelCharacteristic getHotelCharacteristic() {
-		return hotelCharacteristic;
-	}
-
-	public void setHotelCharacteristic(HotelCharacteristic hotelCharacteristic) {
-		this.hotelCharacteristic = hotelCharacteristic;
-	}
-
-	public Date getDate() {
+	
+	public LocalDateTime getDate() {
 		return date;
 	}
 
-	public void setDate(Date date) {
+	public void setDate(LocalDateTime date) {
 		this.date = date;
 	}
 
@@ -113,13 +92,11 @@ public class TouristVoucher implements Serializable {
 		int result = 1;
 		result = prime * result + cost;
 		result = prime * result + ((country != null) ? country.hashCode() : 0);
-		result = prime * result + ((date != null) ? date.hashCode() : 0);
-		result = prime * result + ((hotelCharacteristic != null) ? hotelCharacteristic.hashCode() : 0);
+		result = prime * result + ((date != null) ? date.hashCode() : 0);		
 		result = prime * result + ((numberVoucher != null) ? numberVoucher.hashCode() : 0);
 		result = prime * result + numberDays;
 		result = prime * result + numberNights;
-		result = prime * result + ((transport != null) ? transport.hashCode() : 0);
-		result = prime * result + ((type != null) ? type.hashCode() : 0);
+		result = prime * result + ((transport != null) ? transport.hashCode() : 0);		
 		return result;
 	}
 
@@ -143,12 +120,7 @@ public class TouristVoucher implements Serializable {
 			if (other.date != null)
 				return false;
 		} else if (!date.equals(other.date))
-			return false;
-		if (hotelCharacteristic == null) {
-			if (other.hotelCharacteristic != null)
-				return false;
-		} else if (!hotelCharacteristic.equals(other.hotelCharacteristic))
-			return false;
+			return false;		
 		if (numberVoucher == null) {
 			if (other.numberVoucher != null)
 				return false;
@@ -162,19 +134,16 @@ public class TouristVoucher implements Serializable {
 			if (other.transport != null)
 				return false;
 		} else if (!transport.equals(other.transport))
-			return false;
-		if (type == null) {
-			if (other.type != null)
-				return false;
-		} else if (!type.equals(other.type))
-			return false;
+			return false;		
 		return true;
 	}
 
 	@Override
 	public String toString() {
-		return "TouristVoucher [\ntransport=" + transport + "\ntype=" + type + "\nnumberVoucher=" + numberVoucher +  "\ncountry=" + country + "\nnumberDays=" + numberDays
-				+ "\nnumberNights=" + numberNights + "\ncost=" + cost
-				+ "\nhotelCharacteristic=" + hotelCharacteristic + "\ndate=" + date + "]\n";
+		StringBuilder sb = new StringBuilder("TouristVoucher [\n transport=").append(transport)
+				.append("\n numberVoucher=").append(numberVoucher).append("\n country=").append(country)
+				.append("\n numberDays=").append(numberDays).append("\n numberNights=").append(numberNights)
+				.append("\n cost=").append(cost).append("\n date=").append(date).append("]\n");		
+		return sb.toString();
 	}
 }

@@ -8,14 +8,14 @@ public class HotelCharacteristic implements Serializable {
 
 	private String typeFood;
 	private int stars;
-	private boolean isFood;		
+	private boolean isFood;
 	private boolean isTV;
 	private boolean isConditioner;
 	private int numberPlace;
 
 	public HotelCharacteristic() {
 	}
-	
+
 	public HotelCharacteristic(String typeFood, int stars, boolean isFood, boolean isTV, boolean isConditioner,
 			int numberPlace) {
 		super();
@@ -26,7 +26,7 @@ public class HotelCharacteristic implements Serializable {
 		this.isConditioner = isConditioner;
 		this.numberPlace = numberPlace;
 	}
-	
+
 	public int getStars() {
 		return stars;
 	}
@@ -118,10 +118,13 @@ public class HotelCharacteristic implements Serializable {
 			return false;
 		return true;
 	}
-	
+
 	@Override
 	public String toString() {
-		return "HotelCharacteristic [typeFood= " + typeFood + " ,stars=" + stars + ", isFood=" + isFood
-				+ ", isTV=" + isTV + ", isConditioner=" + isConditioner + ", numberPlace=" + numberPlace + "]";
+		StringBuilder sb = new StringBuilder("HotelCharacteristic [\n typeFood=").append(typeFood).append("\n stars=")
+				.append(stars).append("\n isFood").append(isFood).append("\n isTV=").append(isTV)
+				.append("\n isConditioner=").append(isConditioner).append("\n numberPlace=").append(numberPlace)
+				.append("]\n");
+		return sb.toString();
 	}
 }

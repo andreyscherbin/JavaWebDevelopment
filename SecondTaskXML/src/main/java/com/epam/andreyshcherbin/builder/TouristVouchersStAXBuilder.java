@@ -3,20 +3,21 @@ package com.epam.andreyshcherbin.builder;
 import java.util.Set;
 import javax.xml.stream.XMLInputFactory;
 
+import com.epam.andreyshcherbin.entity.ExcursionVoucher;
 import com.epam.andreyshcherbin.entity.HotelCharacteristic;
+import com.epam.andreyshcherbin.entity.PiligrimageVoucher;
+import com.epam.andreyshcherbin.entity.RestVoucher;
 import com.epam.andreyshcherbin.entity.TouristVoucher;
 import com.epam.andreyshcherbin.exception.ParserException;
-import com.epam.andreyshcherbin.parsing.DateParser;
-import com.epam.andreyshcherbin.parsing.TouristVoucherEnum;
+import com.epam.andreyshcherbin.parsing.TouristVoucherTag;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.Date;
+import java.time.LocalDateTime;
 import javax.xml.stream.XMLStreamConstants;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -43,9 +44,23 @@ public class TouristVouchersStAXBuilder extends AbstractTouristVouchersBuilder {
 				int type = reader.next();
 				if (type == XMLStreamConstants.START_ELEMENT) {
 					name = reader.getLocalName();
-					if (name.equals(TouristVoucherEnum.TOURISTVOUCHER.getValue())) {
-						TouristVoucher touristVoucher = buildTouristVoucher(reader);
+					TouristVoucherTag tag = TouristVoucherTag.valueOf(name.toUpperCase());
+					switch (tag) {
+					case REST_VOUCHER:
+						TouristVoucher touristVoucher = new RestVoucher();
+						buildTouristVoucher(reader, touristVoucher);
 						touristVouchers.add(touristVoucher);
+						break;
+					case EXCURSION_VOUCHER:
+						touristVoucher = new ExcursionVoucher();
+						buildTouristVoucher(reader, touristVoucher);
+						touristVouchers.add(touristVoucher);
+						break;
+					case PILIGRIMAGE_VOUCHER:
+						touristVoucher = new PiligrimageVoucher();
+						buildTouristVoucher(reader, touristVoucher);
+						touristVouchers.add(touristVoucher);
+						break;
 					}
 				}
 			}
@@ -58,14 +73,12 @@ public class TouristVouchersStAXBuilder extends AbstractTouristVouchersBuilder {
 		}
 	}
 
-	private TouristVoucher buildTouristVoucher(XMLStreamReader reader) throws XMLStreamException, ParserException {
-		TouristVoucher touristVoucher = new TouristVoucher();
-		String transport = TouristVoucherEnum.TRANSPORT.getValue();
+	private TouristVoucher buildTouristVoucher(XMLStreamReader reader, TouristVoucher touristVoucher)
+			throws XMLStreamException, ParserException {
+
+		String transport = TouristVoucherTag.TRANSPORT.getValue();
 		String attributeValue = reader.getAttributeValue(null, transport);
 		touristVoucher.setTransport(attributeValue);
-		String typeTouristVoucher = TouristVoucherEnum.TYPE.getValue();
-		attributeValue = reader.getAttributeValue(null, typeTouristVoucher);
-		touristVoucher.setType(attributeValue);
 		String name;
 		while (reader.hasNext()) {
 			int type = reader.next();
@@ -73,8 +86,8 @@ public class TouristVouchersStAXBuilder extends AbstractTouristVouchersBuilder {
 			case XMLStreamConstants.START_ELEMENT:
 				name = reader.getLocalName();
 				String tagText;
-				switch (TouristVoucherEnum.valueOf(name.toUpperCase())) {
-				case NUMBERVOUCHER:
+				switch (TouristVoucherTag.valueOf(name.toUpperCase())) {
+				case NUMBER_VOUCHER:
 					tagText = getXMLText(reader);
 					touristVoucher.setNumberVoucher(tagText);
 					break;
@@ -82,12 +95,12 @@ public class TouristVouchersStAXBuilder extends AbstractTouristVouchersBuilder {
 					tagText = getXMLText(reader);
 					touristVoucher.setCountry(tagText);
 					break;
-				case NUMBERDAYS:
+				case NUMBER_DAYS:
 					tagText = getXMLText(reader);
 					Integer numberDays = Integer.parseInt(tagText);
 					touristVoucher.setNumberDays(numberDays);
 					break;
-				case NUMBERNIGHTS:
+				case NUMBER_NIGHTS:
 					tagText = getXMLText(reader);
 					Integer numberNights = Integer.parseInt(tagText);
 					touristVoucher.setNumberNights(numberNights);
@@ -99,18 +112,40 @@ public class TouristVouchersStAXBuilder extends AbstractTouristVouchersBuilder {
 					break;
 				case DATE:
 					tagText = getXMLText(reader);
-					Date voucherDate = DateParser.parseString(tagText);
+					LocalDateTime voucherDate = LocalDateTime.parse(tagText);
 					touristVoucher.setDate(voucherDate);
 					break;
-				case HOTELCHARACTERISTIC:
+				case CITY:
+					tagText = getXMLText(reader);
+					if (touristVoucher instanceof ExcursionVoucher) {
+						((ExcursionVoucher) touristVoucher).setCity(tagText);
+					}
+					if (touristVoucher instanceof PiligrimageVoucher) {
+						((PiligrimageVoucher) touristVoucher).setCity(tagText);
+					}
+					break;
+				case SHOWPLACE:
+					tagText = getXMLText(reader);
+					if (touristVoucher instanceof ExcursionVoucher) {
+						((ExcursionVoucher) touristVoucher).setShowplace(tagText);
+					}
+					break;
+				case HOTEL_CHARACTERISTIC:
 					HotelCharacteristic hotelCharacteristic = getXMLHotelCharacteristic(reader);
-					touristVoucher.setHotelCharacteristic(hotelCharacteristic);
+					if (touristVoucher instanceof ExcursionVoucher) {
+						((ExcursionVoucher) touristVoucher).addHotelCharacteristic(hotelCharacteristic);
+					}
+					if (touristVoucher instanceof RestVoucher) {
+						((RestVoucher) touristVoucher).addHotelCharacteristic(hotelCharacteristic);
+					}
 					break;
 				}
 				break;
 			case XMLStreamConstants.END_ELEMENT:
 				name = reader.getLocalName();
-				if (TouristVoucherEnum.valueOf(name.toUpperCase()) == TouristVoucherEnum.TOURISTVOUCHER) {
+				if (TouristVoucherTag.valueOf(name.toUpperCase()) == TouristVoucherTag.EXCURSION_VOUCHER || 
+					TouristVoucherTag.valueOf(name.toUpperCase()) == TouristVoucherTag.REST_VOUCHER ||
+					TouristVoucherTag.valueOf(name.toUpperCase()) == TouristVoucherTag.PILIGRIMAGE_VOUCHER) {
 					return touristVoucher;
 				}
 				break;
@@ -121,12 +156,12 @@ public class TouristVouchersStAXBuilder extends AbstractTouristVouchersBuilder {
 
 	private HotelCharacteristic getXMLHotelCharacteristic(XMLStreamReader reader) throws XMLStreamException {
 		HotelCharacteristic hotelCharacteristic = new HotelCharacteristic();
-		String typeFood = TouristVoucherEnum.TYPEFOOD.getValue();
+		String typeFood = TouristVoucherTag.TYPE_FOOD.getValue();
 		String attributeValue = reader.getAttributeValue(null, typeFood);
 		if (attributeValue != null) {
 			hotelCharacteristic.setTypeFood(attributeValue);
 		} else {
-			hotelCharacteristic.setTypeFood("");
+			hotelCharacteristic.setTypeFood("HB");
 		}
 		int type;
 		String name;
@@ -137,28 +172,28 @@ public class TouristVouchersStAXBuilder extends AbstractTouristVouchersBuilder {
 				name = reader.getLocalName();
 				String tagText;
 				boolean result;
-				switch (TouristVoucherEnum.valueOf(name.toUpperCase())) {
+				switch (TouristVoucherTag.valueOf(name.toUpperCase())) {
 				case STARS:
 					tagText = getXMLText(reader);
 					Integer stars = Integer.parseInt(tagText);
 					hotelCharacteristic.setStars(stars);
 					break;
-				case ISFOOD:
+				case IS_FOOD:
 					tagText = getXMLText(reader);
-					result = tagText.equals("true");
+					result = Boolean.parseBoolean(tagText);
 					hotelCharacteristic.setFood(result);
 					break;
-				case ISTV:
+				case IS_TV:
 					tagText = getXMLText(reader);
-					result = tagText.equals("true");
+					result = Boolean.parseBoolean(tagText);
 					hotelCharacteristic.setTV(result);
 					break;
-				case ISCONDITIONER:
+				case IS_CONDITIONER:
 					tagText = getXMLText(reader);
-					result = tagText.equals("true");
+					result = Boolean.parseBoolean(tagText);
 					hotelCharacteristic.setConditioner(result);
 					break;
-				case NUMBERPLACE:
+				case NUMBER_PLACE:
 					tagText = getXMLText(reader);
 					Integer numberPlace = Integer.parseInt(tagText);
 					hotelCharacteristic.setNumberPlace(numberPlace);
@@ -167,7 +202,7 @@ public class TouristVouchersStAXBuilder extends AbstractTouristVouchersBuilder {
 				break;
 			case XMLStreamConstants.END_ELEMENT:
 				name = reader.getLocalName();
-				if (TouristVoucherEnum.valueOf(name.toUpperCase()) == TouristVoucherEnum.HOTELCHARACTERISTIC) {
+				if (TouristVoucherTag.valueOf(name.toUpperCase()) == TouristVoucherTag.HOTEL_CHARACTERISTIC) {
 					return hotelCharacteristic;
 				}
 				break;
