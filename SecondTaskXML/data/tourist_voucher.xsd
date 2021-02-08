@@ -3,27 +3,27 @@
 	targetNamespace="./tourist_vouchers" xmlns:tns="./tourist_vouchers"
 	elementFormDefault="qualified">
 
-	<element name="tourist_voucher" type="tns:TouristVoucher" abstract="true"></element>
-	<element name="excursion_voucher" type="tns:ExcursionVoucher" substitutionGroup="tns:tourist_voucher"></element>
-	<element name="rest_voucher" type="tns:RestVoucher" substitutionGroup="tns:tourist_voucher"></element>
-	<element name="piligrimage_voucher" type="tns:PiligrimageVoucher" substitutionGroup="tns:tourist_voucher"></element>
+	<element name="tourist_voucher" type="tns:TouristVoucher" abstract="true"/>
+	<element name="excursion_voucher" type="tns:ExcursionVoucher" substitutionGroup="tns:tourist_voucher"/>
+	<element name="rest_voucher" type="tns:RestVoucher" substitutionGroup="tns:tourist_voucher"/>
+	<element name="piligrimage_voucher" type="tns:PiligrimageVoucher" substitutionGroup="tns:tourist_voucher"/>
 
 	<element name="tourist_vouchers">
 		<complexType>
 			<sequence>
-				<element ref="tns:tourist_voucher" minOccurs="16" maxOccurs="unbounded" />
+				<element ref="tns:tourist_voucher" minOccurs="16" maxOccurs="unbounded"/>
 			</sequence>
 		</complexType>
 	</element>
 
 	<complexType name="TouristVoucher">
 		<sequence>
-			<element name="number_voucher" type="tns:NumberVoucher" />
-			<element name="country" type="string" />
-			<element name="number_days" type="positiveInteger" />
-			<element name="number_nights" type="positiveInteger" />
-			<element name="cost" type="positiveInteger" />
-			<element name="date" type="dateTime" />
+			<element name="number_voucher" type="tns:NumberVoucher"/>
+			<element name="country" type="string"/>
+			<element name="number_days" type="positiveInteger"/>
+			<element name="number_nights" type="positiveInteger"/>
+			<element name="cost" type="positiveInteger"/>
+			<element name="date" type="dateTime"/>
 		</sequence>
 		<attribute name="transport" use="required">
 			<simpleType>
@@ -41,7 +41,7 @@
 		<complexContent>
 			<extension base="tns:TouristVoucher">
 				<sequence>
-					<element name="hotel_characteristic" type="tns:HotelCharacteristic" minOccurs="1" maxOccurs="unbounded" />
+					<element name="hotel_characteristic" type="tns:HotelCharacteristic" minOccurs="1" maxOccurs="unbounded"/>
 				</sequence>
 			</extension>
 		</complexContent>
@@ -51,9 +51,9 @@
 		<complexContent>
 			<extension base="tns:TouristVoucher">
 				<sequence>
-					<element name="city" type="string" />
-					<element name="showplace" type="string" />
-					<element name="hotel_characteristic" type="tns:HotelCharacteristic" minOccurs="1" maxOccurs="unbounded" />
+					<element name="city" type="string"/>
+					<element name="showplace" type="string"/>
+					<element name="hotel_characteristic" type="tns:HotelCharacteristic" minOccurs="1" maxOccurs="unbounded"/>
 				</sequence>
 			</extension>
 		</complexContent>
@@ -63,7 +63,7 @@
 		<complexContent>
 			<extension base="tns:TouristVoucher">
 				<sequence>
-					<element name="city" type="string" />
+					<element name="city" type="string"/>
 				</sequence>
 			</extension>
 		</complexContent>
@@ -71,17 +71,17 @@
 
 	<simpleType name="NumberVoucher">
 		<restriction base="ID">
-			<pattern value="([A0-9]){10}" />
+			<pattern value="([A\d]){10}"/>
 		</restriction>
 	</simpleType>
 
 	<complexType name="HotelCharacteristic">
 		<sequence>
-			<element name="stars" type="tns:Stars" />
-			<element name="is_food" type="boolean" />
-			<element name="is_tv" type="boolean" />
-			<element name="is_conditioner" type="boolean" />
-			<element name="number_place" type="tns:NumberPlace" />
+			<element name="stars" type="tns:Stars"/>
+			<element name="is_food" type="boolean"/>
+			<element name="is_tv" type="boolean"/>
+			<element name="is_conditioner" type="boolean"/>
+			<element name="number_place" type="tns:NumberPlace"/>
 		</sequence>
 		<attribute name="type_food" use="optional" default="HB">
 			<simpleType>
@@ -96,15 +96,15 @@
 
 	<simpleType name="Stars">
 		<restriction base="positiveInteger">
-			<minInclusive value="1" />
-			<maxInclusive value="5" />
+			<minInclusive value="1"/>
+			<maxInclusive value="5"/>
 		</restriction>
 	</simpleType>
 
 	<simpleType name="NumberPlace">
 		<restriction base="positiveInteger">
-			<minInclusive value="1" />
-			<maxInclusive value="3" />
+			<minInclusive value="1"/>
+			<maxInclusive value="3"/>
 		</restriction>
 	</simpleType>
 </schema>

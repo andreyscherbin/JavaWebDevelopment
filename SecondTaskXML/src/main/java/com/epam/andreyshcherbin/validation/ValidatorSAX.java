@@ -17,7 +17,7 @@ public class ValidatorSAX {
 	private static Logger logger = LogManager.getLogger();
 
 	public boolean validateXML(String filename, String schemaname) {
-		boolean isValid = true;
+		boolean isValid = false;
 		Schema schema = null;
 		String language = XMLConstants.W3C_XML_SCHEMA_NS_URI;
 		SchemaFactory factory = SchemaFactory.newInstance(language);
@@ -28,14 +28,13 @@ public class ValidatorSAX {
 			SAXParser parser = spf.newSAXParser();
 			parser.parse(filename, new TouristVoucherErrorHandler());
 			logger.info("{} is valid", filename);
-		} catch (ParserConfigurationException e) {
-			isValid = false;
+			isValid = true;
+			return isValid;
+		} catch (ParserConfigurationException e) {			
 			logger.error("{} config error: {}", filename, e.getMessage());
-		} catch (SAXException e) {
-			isValid = false;
+		} catch (SAXException e) {			
 			logger.error("{} SAX error: {}", filename, e.getMessage());
-		} catch (IOException e) {
-			isValid = false;
+		} catch (IOException e) {			
 			logger.error("I/O error: {}", e.getMessage());
 		}
 		return isValid;

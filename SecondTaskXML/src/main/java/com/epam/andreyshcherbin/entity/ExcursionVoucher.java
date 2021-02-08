@@ -14,7 +14,7 @@ public class ExcursionVoucher extends TouristVoucher implements Serializable {
 	private List<HotelCharacteristic> listHotelCharacteristic;
 	
 	{
-		listHotelCharacteristic = new ArrayList<HotelCharacteristic>();
+		listHotelCharacteristic = new ArrayList<>();
 	}
 
 	public ExcursionVoucher() {

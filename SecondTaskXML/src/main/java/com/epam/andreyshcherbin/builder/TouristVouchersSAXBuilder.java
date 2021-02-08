@@ -20,12 +20,12 @@ import com.epam.andreyshcherbin.entity.TouristVoucher;
 import com.epam.andreyshcherbin.exception.ParserException;
 import com.epam.andreyshcherbin.parsing.TouristVoucherTag;
 
-@SuppressWarnings("deprecation")
 public class TouristVouchersSAXBuilder extends AbstractTouristVouchersBuilder {
 
 	private static Logger logger = LogManager.getLogger();
 	private TouristVoucherHandler touristVoucherHandler;
 	private XMLReader reader;
+	private static final String DEFAULT_FOOD = "HB";
 
 	public TouristVouchersSAXBuilder() throws ParserException {
 		touristVoucherHandler = new TouristVoucherHandler();
@@ -34,7 +34,7 @@ public class TouristVouchersSAXBuilder extends AbstractTouristVouchersBuilder {
 			reader.setContentHandler(touristVoucherHandler);
 		} catch (SAXException e) {
 			logger.error("ошибка SAX парсера: {}", e);
-			throw new ParserException("ошибка SAX парсера: ", e);			
+			throw new ParserException("ошибка SAX парсера: ", e);
 		}
 	}
 
@@ -60,12 +60,12 @@ public class TouristVouchersSAXBuilder extends AbstractTouristVouchersBuilder {
 
 		private Set<TouristVoucher> touristVouchers;
 		private TouristVoucher current;
-		private TouristVoucherTag currentEnum;
+		private TouristVoucherTag currentTag;
 		private EnumSet<TouristVoucherTag> tagWithText;
 		private HotelCharacteristic hotelCharacteristic;
 
 		public TouristVoucherHandler() {
-			touristVouchers = new HashSet<TouristVoucher>();
+			touristVouchers = new HashSet<>();
 			tagWithText = EnumSet.range(TouristVoucherTag.NUMBER_VOUCHER, TouristVoucherTag.NUMBER_PLACE);
 		}
 
@@ -98,14 +98,14 @@ public class TouristVouchersSAXBuilder extends AbstractTouristVouchersBuilder {
 					String typeFood = attrs.getValue(0);
 					hotelCharacteristic.setTypeFood(typeFood);
 				} else {
-					hotelCharacteristic.setTypeFood("HB");
+					hotelCharacteristic.setTypeFood(DEFAULT_FOOD);
 				}
 				break;
 			}
 			String name = localName.toUpperCase();
 			TouristVoucherTag temp = TouristVoucherTag.valueOf(name);
 			if (tagWithText.contains(temp)) {
-				currentEnum = temp;
+				currentTag = temp;
 			}
 		}
 
@@ -128,8 +128,8 @@ public class TouristVouchersSAXBuilder extends AbstractTouristVouchersBuilder {
 		public void characters(char[] ch, int start, int length) {
 			String tagText = new String(ch, start, length).trim();
 			boolean result;
-			if (currentEnum != null) {
-				switch (currentEnum) {
+			if (currentTag != null) {
+				switch (currentTag) {
 				case NUMBER_VOUCHER:
 					current.setNumberVoucher(tagText);
 					break;
@@ -186,10 +186,10 @@ public class TouristVouchersSAXBuilder extends AbstractTouristVouchersBuilder {
 					hotelCharacteristic.setNumberPlace(numberPlace);
 					break;
 				default:
-					throw new EnumConstantNotPresentException(currentEnum.getDeclaringClass(), currentEnum.name());
+					throw new EnumConstantNotPresentException(currentTag.getDeclaringClass(), currentTag.name());
 				}
 			}
-			currentEnum = null;
+			currentTag = null;
 		}
 	}
 }

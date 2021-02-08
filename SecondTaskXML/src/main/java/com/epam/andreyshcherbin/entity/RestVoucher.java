@@ -12,7 +12,7 @@ public class RestVoucher extends TouristVoucher implements Serializable {
 	private List<HotelCharacteristic> listHotelCharacteristic;
 	
 	{
-		listHotelCharacteristic = new ArrayList<HotelCharacteristic>();
+		listHotelCharacteristic = new ArrayList<>();
 	}
 
 	public RestVoucher() {
@@ -20,7 +20,7 @@ public class RestVoucher extends TouristVoucher implements Serializable {
 
 	public RestVoucher(String transport, String numberVoucher, String country, int numberDays, int numberNights,
 			int cost, LocalDateTime date, List<HotelCharacteristic> listHotelCharacteristic) {
-		super(transport, numberVoucher, country, numberDays, numberNights, cost, date);
+		super(transport, numberVoucher, country, numberDays, numberNights, cost, date);		
 		this.listHotelCharacteristic = listHotelCharacteristic;
 	}
 

@@ -3,7 +3,7 @@ package com.epam.andreyshcherbin.entity;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
-public class TouristVoucher implements Serializable {
+public abstract class TouristVoucher implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -15,10 +15,10 @@ public class TouristVoucher implements Serializable {
 	private int cost;	
 	private LocalDateTime date;
 
-	public TouristVoucher() {		
+	TouristVoucher() {		
 	}
 
-	public TouristVoucher(String transport, String numberVoucher, String country, int numberDays,
+	TouristVoucher(String transport, String numberVoucher, String country, int numberDays,
 			int numberNights, int cost, LocalDateTime date) {
 		super();
 		this.transport = transport;		
