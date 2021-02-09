@@ -212,7 +212,7 @@ public class TouristVouchersStAXBuilder extends AbstractTouristVouchersBuilder {
 	}
 
 	private String getXMLText(XMLStreamReader reader) throws XMLStreamException {
-		String text = null;
+		String text = "some string";
 		if (reader.hasNext()) {
 			reader.next();
 			text = reader.getText();
