@@ -2,6 +2,7 @@ package com.epam.andreyshcherbin.builder;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.util.Collections;
 import java.util.EnumSet;
 import java.util.HashSet;
 import java.util.Set;
@@ -70,7 +71,7 @@ public class TouristVouchersSAXBuilder extends AbstractTouristVouchersBuilder {
 		}
 
 		public Set<TouristVoucher> getTouristVouchers() {
-			return touristVouchers;
+			return Collections.unmodifiableSet(touristVouchers);
 		}
 
 		public void startElement(String uri, String localName, String qName, Attributes attrs) {
