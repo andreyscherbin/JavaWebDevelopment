@@ -8,19 +8,30 @@ public class Sphere implements Serializable {
 
 	private static final long serialVersionUID = 2L;
 
+	//need add id;
 	private Point center;
-	private int radius;
+	private Point boundary;
+	private double radius;
 
 	public Sphere() {
 
 	}
 	
-	public Sphere(Point center, int radious) {
+	public Sphere(Point center, Point boundary, double radius) {
 		super();
 		this.center = center;
-		this.radius = radious;
+		this.boundary = boundary;
+		this.radius = radius;
 	}
-	
+
+	public Point getBoundary() {
+		return boundary;
+	}
+
+	public void setBoundary(Point boundary) {
+		this.boundary = boundary;
+	}
+
 	public Point getCenter() {
 		return center;
 	}
@@ -29,7 +40,7 @@ public class Sphere implements Serializable {
 		this.center = center;
 	}
 
-	public int getRadius() {
+	public double getRadius() {
 		return radius;
 	}
 
@@ -41,8 +52,11 @@ public class Sphere implements Serializable {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((center != null) ? center.hashCode() : 0);
-		result = prime * result + radius;
+		result = prime * result + ((boundary == null) ? 0 : boundary.hashCode());
+		result = prime * result + ((center == null) ? 0 : center.hashCode());
+		long temp;
+		temp = Double.doubleToLongBits(radius);
+		result = prime * result + (int) (temp ^ (temp >>> 32));
 		return result;
 	}
 
@@ -55,12 +69,17 @@ public class Sphere implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Sphere other = (Sphere) obj;
+		if (boundary == null) {
+			if (other.boundary != null)
+				return false;
+		} else if (!boundary.equals(other.boundary))
+			return false;
 		if (center == null) {
 			if (other.center != null)
 				return false;
 		} else if (!center.equals(other.center))
 			return false;
-		if (radius != other.radius)
+		if (Double.doubleToLongBits(radius) != Double.doubleToLongBits(other.radius))
 			return false;
 		return true;
 	}
@@ -70,7 +89,9 @@ public class Sphere implements Serializable {
 		StringBuilder builder = new StringBuilder();
 		builder.append("Sphere [center=");
 		builder.append(center);
-		builder.append(", radious=");
+		builder.append(", boundary=");
+		builder.append(boundary);
+		builder.append(", radius=");
 		builder.append(radius);
 		builder.append("]");
 		return builder.toString();

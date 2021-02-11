@@ -6,42 +6,42 @@ public class Point implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	private int x;
-	private int y;
-	private int z;
+	private double x;
+	private double y;
+	private double z;
 
 	public Point() {
 
-	}	
+	}
 
-	public Point(int x, int y, int z) {
+	public Point(double x, double y, double z) {
 		super();
 		this.x = x;
 		this.y = y;
 		this.z = z;
 	}
 
-	public int getX() {
+	public double getX() {
 		return x;
 	}
 
-	public void setX(int x) {
+	public void setX(double x) {
 		this.x = x;
 	}
 
-	public int getY() {
+	public double getY() {
 		return y;
 	}
 
-	public void setY(int y) {
+	public void setY(double y) {
 		this.y = y;
 	}
 
-	public int getZ() {
+	public double getZ() {
 		return z;
 	}
 
-	public void setZ(int z) {
+	public void setZ(double z) {
 		this.z = z;
 	}
 
@@ -49,9 +49,13 @@ public class Point implements Serializable {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + x;
-		result = prime * result + y;
-		result = prime * result + z;
+		long temp;
+		temp = Double.doubleToLongBits(x);
+		result = prime * result + (int) (temp ^ (temp >>> 32));
+		temp = Double.doubleToLongBits(y);
+		result = prime * result + (int) (temp ^ (temp >>> 32));
+		temp = Double.doubleToLongBits(z);
+		result = prime * result + (int) (temp ^ (temp >>> 32));
 		return result;
 	}
 
@@ -64,11 +68,11 @@ public class Point implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Point other = (Point) obj;
-		if (x != other.x)
+		if (Double.doubleToLongBits(x) != Double.doubleToLongBits(other.x))
 			return false;
-		if (y != other.y)
+		if (Double.doubleToLongBits(y) != Double.doubleToLongBits(other.y))
 			return false;
-		if (z != other.z)
+		if (Double.doubleToLongBits(z) != Double.doubleToLongBits(other.z))
 			return false;
 		return true;
 	}
