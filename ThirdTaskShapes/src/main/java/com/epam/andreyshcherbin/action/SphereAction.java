@@ -1,6 +1,6 @@
 package com.epam.andreyshcherbin.action;
 
-import com.epam.andreyshcherbin.entity.Point;
+import com.epam.andreyshcherbin.entity.CustomPoint;
 import com.epam.andreyshcherbin.entity.Sphere;
 
 public class SphereAction {
@@ -19,7 +19,7 @@ public class SphereAction {
 
 	public boolean isTouch(Sphere sphere) {
 		boolean result = false;
-		Point center = sphere.getCenter();
+		CustomPoint center = sphere.getCenter();
 		double radius = sphere.getRadius();
 		double x = center.getX();
 		double y = center.getY();
@@ -33,7 +33,7 @@ public class SphereAction {
 	}
 	
 	public double dissectionByXY(Sphere sphere) {
-		Point center = sphere.getCenter();
+		CustomPoint center = sphere.getCenter();
 		double radius = sphere.getRadius();
 		double z = center.getZ();
 		double heightSphereSegment = radius - Math.abs(z);

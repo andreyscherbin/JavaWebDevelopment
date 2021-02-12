@@ -2,7 +2,7 @@ package test.epam.andreyshcherbin.validation;
 
 import org.testng.annotations.Test;
 
-import com.epam.andreyshcherbin.entity.Point;
+import com.epam.andreyshcherbin.entity.CustomPoint;
 import com.epam.andreyshcherbin.entity.Sphere;
 import com.epam.andreyshcherbin.validation.SphereValidator;
 
@@ -34,8 +34,8 @@ public class SphereValidatorTest {
 	
 	@DataProvider(name = "isSphereData")
 	public Object[][] isSphereData() {
-		return new Object[][] { { new Sphere(new Point(10, 10, 10), new Point(20, 10, 10), 10), true },
-				                { new Sphere(new Point(0, 0, 0), new Point(20, 0, 0), 20), true } };
+		return new Object[][] { { new Sphere(new CustomPoint(10, 10, 10), new CustomPoint(20, 10, 10), 10), true },
+				                { new Sphere(new CustomPoint(0, 0, 0), new CustomPoint(20, 0, 0), 20), true } };
 	}
 
 }

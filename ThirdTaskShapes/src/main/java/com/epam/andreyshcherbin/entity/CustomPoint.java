@@ -2,7 +2,7 @@ package com.epam.andreyshcherbin.entity;
 
 import java.io.Serializable;
 
-public class Point implements Serializable {
+public class CustomPoint implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -10,11 +10,11 @@ public class Point implements Serializable {
 	private double y;
 	private double z;
 
-	public Point() {
+	public CustomPoint() {
 
 	}
 
-	public Point(double x, double y, double z) {
+	public CustomPoint(double x, double y, double z) {
 		super();
 		this.x = x;
 		this.y = y;
@@ -67,7 +67,7 @@ public class Point implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Point other = (Point) obj;
+		CustomPoint other = (CustomPoint) obj;
 		if (Double.doubleToLongBits(x) != Double.doubleToLongBits(other.x))
 			return false;
 		if (Double.doubleToLongBits(y) != Double.doubleToLongBits(other.y))

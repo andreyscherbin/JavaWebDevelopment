@@ -4,39 +4,38 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
-public class Sphere implements Serializable {
+public class Sphere extends AbstractShape implements Serializable {
 
 	private static final long serialVersionUID = 2L;
 
-	//need add id;
-	private Point center;
-	private Point boundary;
+	private CustomPoint center;
+	private CustomPoint boundary;
 	private double radius;
 
 	public Sphere() {
 
 	}
-	
-	public Sphere(Point center, Point boundary, double radius) {
+
+	public Sphere(CustomPoint center, CustomPoint boundary, double radius) {
 		super();
 		this.center = center;
 		this.boundary = boundary;
 		this.radius = radius;
 	}
 
-	public Point getBoundary() {
+	public CustomPoint getBoundary() {
 		return boundary;
 	}
 
-	public void setBoundary(Point boundary) {
+	public void setBoundary(CustomPoint boundary) {
 		this.boundary = boundary;
 	}
 
-	public Point getCenter() {
+	public CustomPoint getCenter() {
 		return center;
 	}
 
-	public void setCenter(Point center) {
+	public void setCenter(CustomPoint center) {
 		this.center = center;
 	}
 
@@ -51,7 +50,7 @@ public class Sphere implements Serializable {
 	@Override
 	public int hashCode() {
 		final int prime = 31;
-		int result = 1;
+		int result = super.hashCode();
 		result = prime * result + ((boundary == null) ? 0 : boundary.hashCode());
 		result = prime * result + ((center == null) ? 0 : center.hashCode());
 		long temp;
@@ -64,7 +63,7 @@ public class Sphere implements Serializable {
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
-		if (obj == null)
+		if (!super.equals(obj))
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
@@ -87,6 +86,7 @@ public class Sphere implements Serializable {
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
+		builder.append(super.toString());
 		builder.append("Sphere [center=");
 		builder.append(center);
 		builder.append(", boundary=");

@@ -3,7 +3,7 @@ package test.epam.andreyshcherbin.action;
 import org.testng.annotations.Test;
 
 import com.epam.andreyshcherbin.action.SphereAction;
-import com.epam.andreyshcherbin.entity.Point;
+import com.epam.andreyshcherbin.entity.CustomPoint;
 import com.epam.andreyshcherbin.entity.Sphere;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.BeforeClass;
@@ -40,25 +40,25 @@ public class SphereActionTest {
 	
 	@DataProvider(name = "areaSurfaceSphereData")
 	public Object[][] areaSurfaceSphereData() {
-		return new Object[][] { { new Sphere(new Point(0, 0, 0), new Point(10, 0, 0), 10), 1256.0 },
-				                { new Sphere(new Point(0, 0, 0), new Point(20, 0, 0), 20), 5024.0 } };
+		return new Object[][] { { new Sphere(new CustomPoint(0, 0, 0), new CustomPoint(10, 0, 0), 10), 1256.0 },
+				                { new Sphere(new CustomPoint(0, 0, 0), new CustomPoint(20, 0, 0), 20), 5024.0 } };
 	}
 
 	@DataProvider(name = "volumeSphereData")
 	public Object[][] volumeSphereData() {
-		return new Object[][] { { new Sphere(new Point(0, 0, 0), new Point(10, 0, 0), 10), 4186.666 },
-				                { new Sphere(new Point(0, 0, 0), new Point(20, 0, 0), 20), 33493.333 } };
+		return new Object[][] { { new Sphere(new CustomPoint(0, 0, 0), new CustomPoint(10, 0, 0), 10), 4186.666 },
+				                { new Sphere(new CustomPoint(0, 0, 0), new CustomPoint(20, 0, 0), 20), 33493.333 } };
 	}
 	
 	@DataProvider(name = "isTouchData")
 	public Object[][] isTouchData() {
-		return new Object[][] { { new Sphere(new Point(10, 10, 10), new Point(20, 10, 10), 10), true },
-				                { new Sphere(new Point(20, 20, 20), new Point(40, 20, 20), 20), true } };
+		return new Object[][] { { new Sphere(new CustomPoint(10, 10, 10), new CustomPoint(20, 10, 10), 10), true },
+				                { new Sphere(new CustomPoint(20, 20, 20), new CustomPoint(40, 20, 20), 20), true } };
 	}
 	
 	@DataProvider(name = "dissectionByXYData")
 	public Object[][] dissectionByXYData() {
-		return new Object[][] { { new Sphere(new Point(0, 0, 0), new Point(10, 0, 0), 10), 1.0 },
+		return new Object[][] { { new Sphere(new CustomPoint(0, 0, 0), new CustomPoint(10, 0, 0), 10), 1.0 },
 				                };
 	}
 

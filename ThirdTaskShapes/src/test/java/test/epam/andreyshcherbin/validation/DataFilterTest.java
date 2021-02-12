@@ -17,13 +17,12 @@ public class DataFilterTest {
 
 	@Test
 	public void testFilter() {
-		List<String> actual = filter.filterInt("0.0 0.0 0.0 10.0 0.0 0.0 10.0," 
+		List<String> actual = filter.filterDouble("0.0 0.0 0.0 10.0 0.0 0.0 10.0,"
 	                                         + "0a.0 0.0 0.0 10.0 0.0 0.0 10.0,"
 			                                 + "0.0 0.0 0.0 10.0 0.0 0.0 -10.0,"
 			                                 + "10.0 10.0 10.0 20.0 10.0 10.0 10.0");
 		
-        List<String> expected = Arrays.asList("0.0 0.0 0.0 10.0 0.0 0.0 10.0",
-        		                             "0.0 0.0 0.0 10.0 0.0 0.0 -10.0", //need rewrite without negative radius
+        List<String> expected = Arrays.asList("0.0 0.0 0.0 10.0 0.0 0.0 10.0",        		                             
         		                             "10.0 10.0 10.0 20.0 10.0 10.0 10.0");         		
         Assert.assertEquals(actual, expected);
 	}

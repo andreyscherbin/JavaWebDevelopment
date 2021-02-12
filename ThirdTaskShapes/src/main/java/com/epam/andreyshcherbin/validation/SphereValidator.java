@@ -1,13 +1,13 @@
 package com.epam.andreyshcherbin.validation;
 
-import com.epam.andreyshcherbin.entity.Point;
+import com.epam.andreyshcherbin.entity.CustomPoint;
 import com.epam.andreyshcherbin.entity.Sphere;
 
 public class SphereValidator {
 
 	public boolean isSphere(Sphere sphere) {
-		Point center = sphere.getCenter();
-		Point boundary = sphere.getBoundary();
+		CustomPoint center = sphere.getCenter();
+		CustomPoint boundary = sphere.getBoundary();
 		double radius = sphere.getRadius();
 		double x0 = center.getX();
 		double y0 = center.getY();

@@ -8,7 +8,10 @@ import org.testng.annotations.Test;
 
 import com.epam.andreyshcherbin.parser.DataParser;
 import com.epam.andreyshcherbin.validation.DataFilter;
+import com.epam.andreyshcherbin.entity.CustomPoint;
 import com.epam.andreyshcherbin.entity.Sphere;
+import com.epam.andreyshcherbin.exception.ResourceException;
+
 import test.epam.andreyshcherbin.TestListener;
 
 import java.util.Arrays;
@@ -25,15 +28,15 @@ public class DataParserTest {
 	}
 	
 	@Test
-	public void testParseData() {
-		//need rewrite
-		/*List<String> arrays = Arrays.asList("1 -5 -3 2 100 -900"			                                   
-	                                       ,"-43 -21 -43 -54 -76 -1");       
-		List<Sphere> actual = parser.parseData(arrays);
-		List<Sphere> expected = List.of(new Sphere(new int[] { 1, -5, -3, 2, 100, -900}),
-				                             new Sphere(new int[] { -43, -21, -43, -54, -76, -1}));
+	public void testParseData() throws ResourceException {
+		
+		List<String> spheres = Arrays.asList("0.0 0.0 0.0 10.0 0.0 0.0 10.0"			                                   
+	                                       ,"10.0 10.0 10.0 20.0 10.0 10.0 10.0");       
+		List<Sphere> actual = parser.parseData(spheres);
+		List<Sphere> expected = List.of(new Sphere(new CustomPoint(0, 0, 0), new CustomPoint(10, 0, 0), 10),
+				                        new Sphere(new CustomPoint(10, 10, 10), new CustomPoint(20, 10, 10), 10));
 				                        		
-		Assert.assertEquals(actual, expected);*/ 
+		Assert.assertEquals(actual, expected); 
 	}
 	
 	@AfterClass

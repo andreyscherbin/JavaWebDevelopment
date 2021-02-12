@@ -7,9 +7,9 @@ import java.util.List;
 public class DataFilter {
 
 	private static final String REGULAR_DELIMETER_COMMA = ",";
-	private static final String REGULAR_DIGITS_SPACES = "^([\\d].[\\d][\\s])+$"; // need rewrite regular
+	private static final String REGULAR_DIGITS_SPACES = "([+]?\\d*\\.?\\d+\\s*){7}"; //need fix {7} - it's work with 6 elements, NEED REWORK!
 	
-	public List<String> filterInt(String data) {
+	public List<String> filterDouble(String data) {
 		List<String> strings = new ArrayList<>();
 		Arrays.stream(data.split(REGULAR_DELIMETER_COMMA))
 		      .filter(s -> s.matches(REGULAR_DIGITS_SPACES))
