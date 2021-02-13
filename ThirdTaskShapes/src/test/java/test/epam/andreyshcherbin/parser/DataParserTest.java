@@ -7,13 +7,16 @@ import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 
 import com.epam.andreyshcherbin.parser.DataParser;
-import com.epam.andreyshcherbin.validation.DataFilter;
+import com.epam.andreyshcherbin.validation.DataValidator;
+import com.epam.andreyshcherbin.entity.AbstractShape;
 import com.epam.andreyshcherbin.entity.CustomPoint;
 import com.epam.andreyshcherbin.entity.Sphere;
-import com.epam.andreyshcherbin.exception.ResourceException;
+import com.epam.andreyshcherbin.exception.ShapeException;
+import com.epam.andreyshcherbin.factory.ShapeFactory;
 
 import test.epam.andreyshcherbin.TestListener;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -28,15 +31,32 @@ public class DataParserTest {
 	}
 	
 	@Test
-	public void testParseData() throws ResourceException {
+	public void testParseData() throws ShapeException {
 		
-		List<String> spheres = Arrays.asList("0.0 0.0 0.0 10.0 0.0 0.0 10.0"			                                   
-	                                       ,"10.0 10.0 10.0 20.0 10.0 10.0 10.0");       
-		List<Sphere> actual = parser.parseData(spheres);
+		List<String> data = List.of("File structure: Sphere",
+				"Center            Boundary             Radius",
+				"0.0 0.0 0.0       10.0 0.0 0.0         10.0",
+				"0XYZ.0 0.0 0.0    10.0 0.0 0.0         10.0",
+				"0.0 0.0 0.0       10.0 0.0 0.0         -999.0",
+				"10.0 10.0 10.0    20.0 10.0 10.0       10.0",
+				"QWEEWQPEWQPQWEPQ  WE@!#@#!!#!#@P@!#P   @!#OPQWEQEWO@#)!",
+				"",
+				"-4.0 -3.0 -2.0    -14.0 -3.0 -2.0      10.0",
+				"-4.0 -2.0 -7.0    -8.0  ____ ____      ____",
+				"20.0 30.0 40.0     40.0 30.0 40.0      20.0",
+				"-3.0 5.0 7.0       40.0 30.0 40.0      20.0");   
+		List<Object[]> actual = parser.parseData(data);	
+		List<Sphere> actualButSphere = new ArrayList<>();
+		for (Object[] shapeData : actual) {			
+			Sphere sphere = new Sphere((CustomPoint)shapeData[0], (CustomPoint) shapeData[1], (double)shapeData[2]);			
+				actualButSphere.add(sphere);				
+		}
 		List<Sphere> expected = List.of(new Sphere(new CustomPoint(0, 0, 0), new CustomPoint(10, 0, 0), 10),
-				                        new Sphere(new CustomPoint(10, 10, 10), new CustomPoint(20, 10, 10), 10));
-				                        		
-		Assert.assertEquals(actual, expected); 
+                                        new Sphere(new CustomPoint(10, 10, 10), new CustomPoint(20, 10, 10), 10),
+                                        new Sphere(new CustomPoint(-4, -3, -2), new CustomPoint(-14, -3, -2), 10),
+                                        new Sphere(new CustomPoint(20, 30, 40), new CustomPoint(40, 30, 40), 20),
+                                        new Sphere(new CustomPoint(-3, 5, 7), new CustomPoint(40, 30, 40), 20));		                        		
+		Assert.assertEquals(actualButSphere, expected); 
 	}
 	
 	@AfterClass

@@ -5,6 +5,8 @@ import org.testng.annotations.Test;
 import com.epam.andreyshcherbin.action.SphereAction;
 import com.epam.andreyshcherbin.entity.CustomPoint;
 import com.epam.andreyshcherbin.entity.Sphere;
+import com.epam.andreyshcherbin.exception.ShapeException;
+
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.BeforeClass;
 import static org.testng.Assert.assertEquals;
@@ -32,8 +34,14 @@ public class SphereActionTest {
 		assertEquals(actual, expected);
 	}
 	
+	@Test(dataProvider = "isDissectionData")
+	public void isDissectionTest(Sphere sphere, boolean expected) {
+		boolean actual = sphereAction.isDissection(sphere);
+		assertEquals(actual, expected);
+	}
+	
 	@Test(dataProvider = "dissectionByXYData")
-	public void dissectionByXYTest(Sphere sphere, double expectedRatio) {
+	public void dissectionByXYTest(Sphere sphere, double expectedRatio) throws ShapeException {
 		double actualRatio = sphereAction.dissectionByXY(sphere);
 		assertEquals(actualRatio, expectedRatio, 0.01);
 	}
@@ -41,7 +49,9 @@ public class SphereActionTest {
 	@DataProvider(name = "areaSurfaceSphereData")
 	public Object[][] areaSurfaceSphereData() {
 		return new Object[][] { { new Sphere(new CustomPoint(0, 0, 0), new CustomPoint(10, 0, 0), 10), 1256.0 },
-				                { new Sphere(new CustomPoint(0, 0, 0), new CustomPoint(20, 0, 0), 20), 5024.0 } };
+				                { new Sphere(new CustomPoint(0, 0, 0), new CustomPoint(20, 0, 0), 20), 5024.0 },
+		                        { new Sphere(new CustomPoint(10, 10, 10), new CustomPoint(20, 10, 10), 11), 1519.76},
+				                { new Sphere(new CustomPoint(-4, -3, -2), new CustomPoint(-14, -3, -2), 11), 1519.76 }};
 	}
 
 	@DataProvider(name = "volumeSphereData")
@@ -54,6 +64,15 @@ public class SphereActionTest {
 	public Object[][] isTouchData() {
 		return new Object[][] { { new Sphere(new CustomPoint(10, 10, 10), new CustomPoint(20, 10, 10), 10), true },
 				                { new Sphere(new CustomPoint(20, 20, 20), new CustomPoint(40, 20, 20), 20), true } };
+	}
+	
+	@DataProvider(name = "isDissectionData")
+	public Object[][] isDissectionData() {
+		return new Object[][] { { new Sphere(new CustomPoint(-5, 10, 10), new CustomPoint(-15, 10, 10), 10), true },
+				                { new Sphere(new CustomPoint(20, 20, 20), new CustomPoint(40, 20, 20), 20), false},
+								{ new Sphere(new CustomPoint(11, 5, 10), new CustomPoint(21, 5, 10), 10), true },
+                				{ new Sphere(new CustomPoint(11, 20, -19), new CustomPoint(31, 20, -30), 20), true },
+								{ new Sphere(new CustomPoint(0, 0, 0), new CustomPoint(10, 0, 0), 10), true }};
 	}
 	
 	@DataProvider(name = "dissectionByXYData")

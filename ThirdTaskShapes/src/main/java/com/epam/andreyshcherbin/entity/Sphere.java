@@ -47,6 +47,8 @@ public class Sphere extends AbstractShape implements Serializable {
 		this.radius = radious;
 	}
 
+	
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -93,7 +95,7 @@ public class Sphere extends AbstractShape implements Serializable {
 		builder.append(boundary);
 		builder.append(", radius=");
 		builder.append(radius);
-		builder.append("]");
+		builder.append("]\n");
 		return builder.toString();
 	}
 }

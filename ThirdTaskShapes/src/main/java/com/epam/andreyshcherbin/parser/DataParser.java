@@ -7,45 +7,52 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import com.epam.andreyshcherbin.entity.CustomPoint;
-import com.epam.andreyshcherbin.entity.Sphere;
-import com.epam.andreyshcherbin.exception.ResourceException;
-import com.epam.andreyshcherbin.factory.ShapeFactory;
-import com.epam.andreyshcherbin.validation.SphereValidator;
+import com.epam.andreyshcherbin.exception.ShapeException;
+import com.epam.andreyshcherbin.validation.DataValidator;
 
 public class DataParser {
 
 	static Logger logger = LogManager.getLogger();
-	private static final String REGULAR_DELIMETER_SPACE = "\\s";
+	private static final String REGULAR_DELIMETER_SPACE = "\\s+";
 
-	public List<Sphere> parseData(List<String> stringSpheres) throws ResourceException {
-		if (stringSpheres == null) {
-			logger.error("incalid argument {}", stringSpheres);
-			throw new ResourceException("invalid argument: " + stringSpheres);
+	public List<Object[]> parseData(List<String> shapes) throws ShapeException {
+		if (shapes == null) {
+			logger.error("invalid argument {}", shapes);
+			throw new ShapeException("invalid argument: " + shapes);
 		}
-
-		SphereValidator sphereValidator = new SphereValidator();
-		List<Sphere> spheres = new ArrayList<>();
-		for (String stringSphere : stringSpheres) {
-
-			Sphere sphere;
-			String[] centerBoundaryRadius = stringSphere.split(REGULAR_DELIMETER_SPACE);
-			CustomPoint center;
-			CustomPoint boundary;
-			double radius;
-			double x = Double.parseDouble(centerBoundaryRadius[0]);
-			double y = Double.parseDouble(centerBoundaryRadius[1]);
-			double z = Double.parseDouble(centerBoundaryRadius[2]);
-			center = new CustomPoint(x, y, z);
-			x = Double.parseDouble(centerBoundaryRadius[3]);
-			y = Double.parseDouble(centerBoundaryRadius[4]);
-			z = Double.parseDouble(centerBoundaryRadius[5]);
-			boundary = new CustomPoint(x, y, z);
-			radius = Double.parseDouble(centerBoundaryRadius[6]);
-			sphere = (Sphere) ShapeFactory.getShapeFromFactory(center, boundary, radius);
-			if (sphereValidator.isSphere(sphere)) {
-				spheres.add(sphere);
+		DataValidator dataValidator = new DataValidator();
+		List<Object[]> shapesData = new ArrayList<>();
+		int counterAllShapeStrings = shapes.size();
+		int counterValidShapeStrings = 0;
+		for (String shapeString : shapes) {
+			if (dataValidator.isSphereDataValid(shapeString)) {
+				counterValidShapeStrings++;
+				String[] centerBoundaryRadius = shapeString.split(REGULAR_DELIMETER_SPACE);
+				CustomPoint center;
+				CustomPoint boundary;
+				double radius;
+				double x = Double.parseDouble(centerBoundaryRadius[0]);
+				double y = Double.parseDouble(centerBoundaryRadius[1]);
+				double z = Double.parseDouble(centerBoundaryRadius[2]);
+				center = new CustomPoint(x, y, z);
+				x = Double.parseDouble(centerBoundaryRadius[3]);
+				y = Double.parseDouble(centerBoundaryRadius[4]);
+				z = Double.parseDouble(centerBoundaryRadius[5]);
+				boundary = new CustomPoint(x, y, z);
+				radius = Double.parseDouble(centerBoundaryRadius[6]);
+				Object[] shapeData = new Object[3];
+				shapeData[0] = center;
+				shapeData[1] = boundary;
+				shapeData[2] = radius;
+				shapesData.add(shapeData);
 			}
 		}
-		return spheres;
+		if (shapesData.isEmpty()) {
+			logger.error("empty list {}", shapesData);
+			throw new ShapeException("emty list: " + shapesData);
+		}
+		logger.info("Number valid shape strings =  {} Number all shape strings {}", counterValidShapeStrings,
+				counterAllShapeStrings);
+		return shapesData;
 	}
 }

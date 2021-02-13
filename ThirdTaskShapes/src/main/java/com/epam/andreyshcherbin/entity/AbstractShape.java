@@ -1,10 +1,14 @@
 package com.epam.andreyshcherbin.entity;
 
+import com.epam.andreyshcherbin.generator.IdGenerator;
+
 public abstract class AbstractShape {
+	
 	private long id;
 
 	protected AbstractShape() {
-	}
+		id = IdGenerator.getId();
+	}  
 
 	public long getId() {
 		return id;
