@@ -11,7 +11,6 @@ public class CustomPoint implements Serializable {
 	private double z;
 
 	public CustomPoint() {
-
 	}
 
 	public CustomPoint(double x, double y, double z) {

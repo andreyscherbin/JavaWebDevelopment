@@ -1,16 +1,20 @@
 package com.epam.andreyshcherbin.entity;
 
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
+import com.epam.andreyshcherbin.observer.Observable;
+import com.epam.andreyshcherbin.observer.ShapeObserver;
+import com.epam.andreyshcherbin.observer.SphereEvent;
 
-public class Sphere extends AbstractShape implements Serializable {
+public class Sphere extends AbstractShape implements Serializable, Observable {
 
 	private static final long serialVersionUID = 2L;
 
 	private CustomPoint center;
 	private CustomPoint boundary;
 	private double radius;
+	private List<ShapeObserver> observers = new ArrayList<>();
 
 	public Sphere() {
 
@@ -43,11 +47,10 @@ public class Sphere extends AbstractShape implements Serializable {
 		return radius;
 	}
 
-	public void setRadius(int radious) {
-		this.radius = radious;
+	public void setRadius(double radius) {
+		this.radius = radius;
+		notifyObservers();
 	}
-
-	
 
 	@Override
 	public int hashCode() {
@@ -97,5 +100,23 @@ public class Sphere extends AbstractShape implements Serializable {
 		builder.append(radius);
 		builder.append("]\n");
 		return builder.toString();
+	}
+
+	@Override
+	public void attach(ShapeObserver observer) {
+		if (observer != null) {
+			observers.add(observer);
+		}
+	}
+
+	@Override
+	public void detach(ShapeObserver observer) {
+		observers.remove(observer);
+	}
+
+	@Override
+	public void notifyObservers() {
+		SphereEvent event = new SphereEvent(this);
+		observers.forEach(e -> e.valueChanged(event));
 	}
 }

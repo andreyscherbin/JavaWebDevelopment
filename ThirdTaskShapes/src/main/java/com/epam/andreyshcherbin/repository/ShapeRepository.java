@@ -22,6 +22,14 @@ public class ShapeRepository {
 		shapes.remove(shape);
 	}
 	
+	public AbstractShape get(int index) {
+		return shapes.get(index);
+	}
+	
+	public AbstractShape set(int index, AbstractShape element) {
+		return shapes.set(index, element);
+	}
+	
 	public List<AbstractShape> query(Specification specification) {
 		List<AbstractShape> list = shapes.stream().filter(e -> specification.specify(e)).collect(Collectors.toList());
 		return list;
