@@ -4,18 +4,16 @@ import com.epam.andreyshcherbin.entity.CustomPoint;
 import com.epam.andreyshcherbin.entity.Sphere;
 import com.epam.andreyshcherbin.exception.ShapeException;
 
-public class SphereAction {
-
-	private static final double PI = 3.14;
+public class SphereAction {	
 
 	public double areaSurfaceSphere(Sphere sphere) {
 		double radius = sphere.getRadius();
-		return 4 * PI * radius * radius;
+		return 4 * Math.PI * radius * radius;
 	}
 
 	public double volumeSphere(Sphere sphere) {
 		double radius = sphere.getRadius();
-		return (4.0 / 3) * PI * radius * radius * radius;
+		return (4.0 / 3) * Math.PI * radius * radius * radius;
 	}
 
 	public boolean isTouch(Sphere sphere) {
@@ -58,8 +56,8 @@ public class SphereAction {
 		}
 		double heightSphereSegment = radius - Math.abs(z);
 		double heightRestSphereSegment = radius + Math.abs(z);
-		double volumeSphereSegment = PI * Math.pow(heightSphereSegment, 2) * (3 * radius - heightSphereSegment) / 3;
-		double volumeRestSphereSegment = PI * Math.pow(heightRestSphereSegment, 2)
+		double volumeSphereSegment = Math.PI * Math.pow(heightSphereSegment, 2) * (3 * radius - heightSphereSegment) / 3;
+		double volumeRestSphereSegment = Math.PI * Math.pow(heightRestSphereSegment, 2)
 				* (3 * radius - heightRestSphereSegment) / 3;
 		return volumeSphereSegment / volumeRestSphereSegment;
 		} 	

@@ -17,7 +17,6 @@ public class Sphere extends AbstractShape implements Serializable, Observable {
 	private List<ShapeObserver> observers = new ArrayList<>();
 
 	public Sphere() {
-
 	}
 
 	public Sphere(CustomPoint center, CustomPoint boundary, double radius) {

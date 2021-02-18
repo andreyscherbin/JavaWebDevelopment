@@ -16,7 +16,12 @@ public class ShapeValues implements Serializable {
 		this.areaSurface = sphereAction.areaSurfaceSphere((Sphere) shape);
 		this.volume = sphereAction.volumeSphere((Sphere) shape);
 	}
-
+	
+	public ShapeValues(double areaSurface, double volume) {		
+		this.areaSurface = areaSurface;
+		this.volume = volume;
+	}
+	
 	public double getAreaSurface() {
 		return areaSurface;
 	}

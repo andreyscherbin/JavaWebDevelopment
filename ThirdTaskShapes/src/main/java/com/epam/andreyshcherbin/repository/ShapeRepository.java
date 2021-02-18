@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
+import com.epam.andreyshcherbin.comparator.ShapeComparator;
 import com.epam.andreyshcherbin.entity.AbstractShape;
 
 public class ShapeRepository {
@@ -17,24 +18,44 @@ public class ShapeRepository {
 	public void addShape(AbstractShape shape) {
 		shapes.add(shape);
 	}
-	
+
 	public void removeShape(AbstractShape shape) {
 		shapes.remove(shape);
 	}
-	
+
 	public AbstractShape get(int index) {
 		return shapes.get(index);
 	}
-	
+
 	public AbstractShape set(int index, AbstractShape element) {
 		return shapes.set(index, element);
 	}
-	
+
 	public List<AbstractShape> query(Specification specification) {
 		List<AbstractShape> list = shapes.stream().filter(e -> specification.specify(e)).collect(Collectors.toList());
 		return list;
 	}
-	
+
+	public void sortByID() {
+		shapes.sort(ShapeComparator.ID);
+	}
+
+	public void sortByRadius() {
+		shapes.sort(ShapeComparator.RADIUS);
+	}
+
+	public void sortByCenterX() {
+		shapes.sort(ShapeComparator.CENTER_X);
+	}
+
+	public void sortByCenterY() {
+		shapes.sort(ShapeComparator.CENTER_Y);
+	}
+
+	public void sortByCenterZ() {
+		shapes.sort(ShapeComparator.CENTER_Z);
+	}
+
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
@@ -42,5 +63,5 @@ public class ShapeRepository {
 		builder.append(shapes);
 		builder.append("]");
 		return builder.toString();
-	}		
+	}
 }

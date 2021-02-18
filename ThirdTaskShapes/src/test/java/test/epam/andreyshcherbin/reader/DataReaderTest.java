@@ -7,6 +7,7 @@ import org.testng.annotations.Test;
 
 import com.epam.andreyshcherbin.reader.DataReader;
 import com.epam.andreyshcherbin.exception.ShapeException;
+import com.epam.andreyshcherbin.generator.IdGenerator;
 
 import static org.testng.Assert.*;
 
@@ -26,6 +27,7 @@ public class DataReaderTest {
 	
 	@BeforeClass
 	public void setUp() {
+		IdGenerator.reset();
 		reader = new DataReader();
 	}
 

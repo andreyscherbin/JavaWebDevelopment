@@ -6,7 +6,7 @@ import com.epam.andreyshcherbin.action.SphereAction;
 import com.epam.andreyshcherbin.entity.CustomPoint;
 import com.epam.andreyshcherbin.entity.Sphere;
 import com.epam.andreyshcherbin.exception.ShapeException;
-
+import com.epam.andreyshcherbin.generator.IdGenerator;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.BeforeClass;
 import static org.testng.Assert.assertEquals;
@@ -15,6 +15,12 @@ import org.testng.annotations.AfterClass;
 public class SphereActionTest {
 
 	private SphereAction sphereAction;
+	
+	@BeforeClass
+	public void beforeClass() {
+		IdGenerator.reset();
+		sphereAction = new SphereAction();
+	}
 
 	@Test(dataProvider = "areaSurfaceSphereData")
 	public void areaSurfaceSphereTest(Sphere sphere, Double expectedAreaSurface) {
@@ -48,16 +54,16 @@ public class SphereActionTest {
 	
 	@DataProvider(name = "areaSurfaceSphereData")
 	public Object[][] areaSurfaceSphereData() {
-		return new Object[][] { { new Sphere(new CustomPoint(0, 0, 0), new CustomPoint(10, 0, 0), 10), 1256.0 },
-				                { new Sphere(new CustomPoint(0, 0, 0), new CustomPoint(20, 0, 0), 20), 5024.0 },
-		                        { new Sphere(new CustomPoint(10, 10, 10), new CustomPoint(20, 10, 10), 11), 1519.76},
-				                { new Sphere(new CustomPoint(-4, -3, -2), new CustomPoint(-14, -3, -2), 11), 1519.76 }};
+		return new Object[][] { { new Sphere(new CustomPoint(0, 0, 0), new CustomPoint(10, 0, 0), 10), 1256.637 },
+				                { new Sphere(new CustomPoint(0, 0, 0), new CustomPoint(20, 0, 0), 20), 5026.548 },
+		                        { new Sphere(new CustomPoint(10, 10, 10), new CustomPoint(20, 10, 10), 11), 1520.530},
+				                { new Sphere(new CustomPoint(-4, -3, -2), new CustomPoint(-14, -3, -2), 11), 1520.530 }};
 	}
 
 	@DataProvider(name = "volumeSphereData")
 	public Object[][] volumeSphereData() {
-		return new Object[][] { { new Sphere(new CustomPoint(0, 0, 0), new CustomPoint(10, 0, 0), 10), 4186.666 },
-				                { new Sphere(new CustomPoint(0, 0, 0), new CustomPoint(20, 0, 0), 20), 33493.333 } };
+		return new Object[][] { { new Sphere(new CustomPoint(0, 0, 0), new CustomPoint(10, 0, 0), 10), 4188.790 },
+				                { new Sphere(new CustomPoint(0, 0, 0), new CustomPoint(20, 0, 0), 20), 33510.321 } };
 	}
 	
 	@DataProvider(name = "isTouchData")
@@ -80,12 +86,7 @@ public class SphereActionTest {
 		return new Object[][] { { new Sphere(new CustomPoint(0, 0, 0), new CustomPoint(10, 0, 0), 10), 1.0 },
 				                };
 	}
-
-	@BeforeClass
-	public void beforeClass() {
-		sphereAction = new SphereAction();
-	}
-
+	
 	@AfterClass
 	public void afterClass() {
 		sphereAction = null;

@@ -4,7 +4,7 @@ import com.epam.andreyshcherbin.entity.ShapeValues;
 import com.epam.andreyshcherbin.entity.Sphere;
 import com.epam.andreyshcherbin.observer.ShapeObserver;
 import com.epam.andreyshcherbin.observer.SphereEvent;
-import com.epam.andreyshcherbin.repository.Warehouse;
+import com.epam.andreyshcherbin.warehouse.Warehouse;
 
 public class SphereObserver implements ShapeObserver {
 

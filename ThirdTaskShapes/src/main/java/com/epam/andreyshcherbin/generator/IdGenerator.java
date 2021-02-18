@@ -7,4 +7,8 @@ public class IdGenerator {
 	public static long getId() {
 		return ++nextId;
 	}
+	
+	public static void reset() {
+		nextId = 0;
+	}
 }
