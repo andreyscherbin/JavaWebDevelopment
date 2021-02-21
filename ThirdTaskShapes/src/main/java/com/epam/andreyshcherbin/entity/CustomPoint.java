@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 public class CustomPoint implements Serializable {
 
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 3L;
 
 	private double x;
 	private double y;
@@ -14,7 +14,6 @@ public class CustomPoint implements Serializable {
 	}
 
 	public CustomPoint(double x, double y, double z) {
-		super();
 		this.x = x;
 		this.y = y;
 		this.z = z;

@@ -1,27 +1,26 @@
 package com.epam.andreyshcherbin.entity;
 
 import java.io.Serializable;
-
 import com.epam.andreyshcherbin.action.SphereAction;
 
 public class ShapeValues implements Serializable {
-	
-	private static final long serialVersionUID = 3L;
-	
+
+	private static final long serialVersionUID = 4L;
+
 	double areaSurface;
 	double volume;
-	
+
 	public ShapeValues(AbstractShape shape) {
 		SphereAction sphereAction = new SphereAction();
 		this.areaSurface = sphereAction.areaSurfaceSphere((Sphere) shape);
 		this.volume = sphereAction.volumeSphere((Sphere) shape);
 	}
-	
-	public ShapeValues(double areaSurface, double volume) {		
+
+	public ShapeValues(double areaSurface, double volume) {
 		this.areaSurface = areaSurface;
 		this.volume = volume;
 	}
-	
+
 	public double getAreaSurface() {
 		return areaSurface;
 	}
@@ -75,5 +74,5 @@ public class ShapeValues implements Serializable {
 		builder.append(volume);
 		builder.append("]");
 		return builder.toString();
-	}	
+	}
 }

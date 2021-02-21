@@ -12,26 +12,15 @@ public class Sphere extends AbstractShape implements Serializable, Observable {
 	private static final long serialVersionUID = 2L;
 
 	private CustomPoint center;
-	private CustomPoint boundary;
 	private double radius;
-	private List<ShapeObserver> observers = new ArrayList<>();
+	private transient List<ShapeObserver> observers = new ArrayList<>();
 
 	public Sphere() {
 	}
 
-	public Sphere(CustomPoint center, CustomPoint boundary, double radius) {
-		super();
+	public Sphere(CustomPoint center, double radius) {
 		this.center = center;
-		this.boundary = boundary;
 		this.radius = radius;
-	}
-
-	public CustomPoint getBoundary() {
-		return boundary;
-	}
-
-	public void setBoundary(CustomPoint boundary) {
-		this.boundary = boundary;
 	}
 
 	public CustomPoint getCenter() {
@@ -55,8 +44,7 @@ public class Sphere extends AbstractShape implements Serializable, Observable {
 	public int hashCode() {
 		final int prime = 31;
 		int result = super.hashCode();
-		result = prime * result + ((boundary == null) ? 0 : boundary.hashCode());
-		result = prime * result + ((center == null) ? 0 : center.hashCode());
+		result = prime * result + ((center != null) ? center.hashCode() : 0);
 		long temp;
 		temp = Double.doubleToLongBits(radius);
 		result = prime * result + (int) (temp ^ (temp >>> 32));
@@ -72,11 +60,6 @@ public class Sphere extends AbstractShape implements Serializable, Observable {
 		if (getClass() != obj.getClass())
 			return false;
 		Sphere other = (Sphere) obj;
-		if (boundary == null) {
-			if (other.boundary != null)
-				return false;
-		} else if (!boundary.equals(other.boundary))
-			return false;
 		if (center == null) {
 			if (other.center != null)
 				return false;
@@ -93,8 +76,6 @@ public class Sphere extends AbstractShape implements Serializable, Observable {
 		builder.append(super.toString());
 		builder.append("Sphere [center=");
 		builder.append(center);
-		builder.append(", boundary=");
-		builder.append(boundary);
 		builder.append(", radius=");
 		builder.append(radius);
 		builder.append("]\n");

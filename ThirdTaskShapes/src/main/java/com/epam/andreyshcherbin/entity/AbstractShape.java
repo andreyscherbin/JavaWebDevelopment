@@ -1,14 +1,17 @@
 package com.epam.andreyshcherbin.entity;
 
+import java.io.Serializable;
 import com.epam.andreyshcherbin.generator.IdGenerator;
 
-public abstract class AbstractShape {
-	
+public abstract class AbstractShape implements Serializable {
+
+	private static final long serialVersionUID = 1L;
+
 	private long id;
 
 	protected AbstractShape() {
 		id = IdGenerator.getId();
-	}  
+	}
 
 	public long getId() {
 		return id;

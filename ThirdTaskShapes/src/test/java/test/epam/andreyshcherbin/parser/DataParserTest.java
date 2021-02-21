@@ -29,28 +29,28 @@ public class DataParserTest {
 	public void testParseData() throws ShapeException {
 		
 		List<String> data = List.of("File structure: Sphere",
-				"Center            Boundary             Radius",
-				"0.0 0.0 0.0       10.0 0.0 0.0         10.0",
-				"0XYZ.0 0.0 0.0    10.0 0.0 0.0         10.0",
-				"0.0 0.0 0.0       10.0 0.0 0.0         -999.0",
-				"10.0 10.0 10.0    20.0 10.0 10.0       10.0",
-				"QWEEWQPEWQPQWEPQ  WE@!#@#!!#!#@P@!#P   @!#OPQWEQEWO@#)!",
+				"Center                     Radius",
+				"0.0 0.0 0.0                10.0",
+				"0XYZ.0 0.0 0.0             10.0",
+				"0.0 0.0 0.0                -999.0",
+				"10.0 10.0 10.0             10.0",
+				"QWEEWQPEWQPQWEPQ           @!#OPQWEQEWO@#)!",
 				"",
-				"-4.0 -3.0 -2.0    -14.0 -3.0 -2.0      10.0",
-				"-4.0 -2.0 -7.0    -8.0  ____ ____      ____",
-				"20.0 30.0 40.0     40.0 30.0 40.0      20.0",
-				"-3.0 5.0 7.0       40.0 30.0 40.0      20.0");   
+				"-4.0 -3.0 -2.0             10.0",
+				"-4.0 -2.0 -7.0             ____",
+				"20.0 30.0 40.0             20.0",
+				"-3.0 5.0 7.0               20.0");   
 		List<Object[]> actual = parser.parseData(data);	
 		List<Sphere> actualButSphere = new ArrayList<>();
 		for (Object[] shapeData : actual) {			
-			Sphere sphere = new Sphere((CustomPoint)shapeData[0], (CustomPoint) shapeData[1], (double)shapeData[2]);			
+			Sphere sphere = new Sphere((CustomPoint)shapeData[0], (double)shapeData[1]);			
 				actualButSphere.add(sphere);				
 		}
-		List<Sphere> expected = List.of(new Sphere(new CustomPoint(0, 0, 0), new CustomPoint(10, 0, 0), 10),
-                                        new Sphere(new CustomPoint(10, 10, 10), new CustomPoint(20, 10, 10), 10),
-                                        new Sphere(new CustomPoint(-4, -3, -2), new CustomPoint(-14, -3, -2), 10),
-                                        new Sphere(new CustomPoint(20, 30, 40), new CustomPoint(40, 30, 40), 20),
-                                        new Sphere(new CustomPoint(-3, 5, 7), new CustomPoint(40, 30, 40), 20));
+		List<Sphere> expected = List.of(new Sphere(new CustomPoint(0, 0, 0),  10),
+                                        new Sphere(new CustomPoint(10, 10, 10), 10),
+                                        new Sphere(new CustomPoint(-4, -3, -2), 10),
+                                        new Sphere(new CustomPoint(20, 30, 40),  20),
+                                        new Sphere(new CustomPoint(-3, 5, 7),  20));
 		expected.get(0).setId(1);
 		expected.get(1).setId(2);
 		expected.get(2).setId(3);

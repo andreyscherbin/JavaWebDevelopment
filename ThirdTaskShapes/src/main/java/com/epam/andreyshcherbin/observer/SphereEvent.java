@@ -1,7 +1,6 @@
 package com.epam.andreyshcherbin.observer;
 
 import java.util.EventObject;
-
 import com.epam.andreyshcherbin.entity.Sphere;
 
 public class SphereEvent extends EventObject {

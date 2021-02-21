@@ -7,15 +7,13 @@ import java.nio.file.Paths;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import com.epam.andreyshcherbin.exception.ShapeException;
 
 public class DataReader {
-	
-	static Logger logger = LogManager.getLogger();
-	static final String DELIMETER_NEW_LINE = System.lineSeparator();
+
+	private static Logger logger = LogManager.getLogger();
 
 	public List<String> read(String filename) throws ShapeException {
 		Path path = Paths.get(filename);

@@ -8,45 +8,14 @@ public class SphereAction {
 
 	public double areaSurfaceSphere(Sphere sphere) {
 		double radius = sphere.getRadius();
-		return 4 * Math.PI * radius * radius;
+		return 4 * Math.PI * Math.pow(radius, 2);
 	}
 
 	public double volumeSphere(Sphere sphere) {
 		double radius = sphere.getRadius();
-		return (4.0 / 3) * Math.PI * radius * radius * radius;
+		return (4.0 / 3) * Math.PI * Math.pow(radius, 3);
 	}
-
-	public boolean isTouch(Sphere sphere) {
-		boolean result = false;
-		CustomPoint center = sphere.getCenter();
-		double radius = sphere.getRadius();
-		double x = center.getX();
-		double y = center.getY();
-		double z = center.getZ();
-		if (x + radius == 0 || x - radius == 0 || 
-		    y + radius == 0 || y - radius == 0 ||
-		    z + radius == 0	|| z - radius == 0) {
-			result = true;
-		}
-		return result;
-	}
-
-	public boolean isDissection(Sphere sphere) {
-		boolean result = false;
-		CustomPoint center = sphere.getCenter();
-		double radius = sphere.getRadius();
-		double x = center.getX();
-		double y = center.getY();
-		double z = center.getZ();
-		if (x >= 0 && x - radius < 0 || y >= 0 && y - radius < 0 || z >= 0 && z - radius < 0 ) {			
-			result = true;			
-		}
-		if (x <= 0 && x + radius > 0 || y <= 0 && y + radius > 0 || z <= 0 && z + radius > 0 ) {			
-			result = true;			
-		}
-		return result;
-	}
-
+	
 	public double dissectionByXY(Sphere sphere) throws ShapeException {
 		CustomPoint center = sphere.getCenter();
 		double radius = sphere.getRadius();

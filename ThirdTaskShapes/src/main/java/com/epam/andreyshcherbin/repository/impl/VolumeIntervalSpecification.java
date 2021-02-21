@@ -16,7 +16,8 @@ public class VolumeIntervalSpecification implements Specification {
 
 	@Override
 	public boolean specify(AbstractShape shape) {
-		double volume = new SphereAction().volumeSphere((Sphere) shape);
+		SphereAction sphereAction = new SphereAction();
+		double volume = sphereAction.volumeSphere((Sphere) shape);
 		boolean result = volume >= minVolume && volume <= maxVolume;
 		return result;
 	}

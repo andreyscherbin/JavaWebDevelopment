@@ -5,7 +5,7 @@ import com.epam.andreyshcherbin.entity.AbstractShape;
 import com.epam.andreyshcherbin.entity.Sphere;
 import com.epam.andreyshcherbin.repository.Specification;
 
-public class AreaSurfaceIntervalSpecification implements Specification {
+public class AreaSurfaceIntervalSpecification implements Specification{
 
 	private double minAreaSurface;
 	private double maxAreaSurface;
@@ -17,7 +17,8 @@ public class AreaSurfaceIntervalSpecification implements Specification {
 
 	@Override
 	public boolean specify(AbstractShape shape) {
-		double areaSurface = new SphereAction().areaSurfaceSphere((Sphere) shape);
+		SphereAction sphereAction = new SphereAction();
+		double areaSurface = sphereAction.areaSurfaceSphere((Sphere) shape);
 		boolean result = areaSurface >= minAreaSurface && areaSurface <= maxAreaSurface;
 		return result;
 	}

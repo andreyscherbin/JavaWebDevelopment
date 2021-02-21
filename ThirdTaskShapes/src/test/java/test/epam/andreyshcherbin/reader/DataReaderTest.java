@@ -4,17 +4,11 @@ import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
-
 import com.epam.andreyshcherbin.reader.DataReader;
 import com.epam.andreyshcherbin.exception.ShapeException;
 import com.epam.andreyshcherbin.generator.IdGenerator;
-
 import static org.testng.Assert.*;
-
 import java.util.List;
-
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import test.epam.andreyshcherbin.TestListener;
 
 @Listeners(TestListener.class)
@@ -35,19 +29,19 @@ public class DataReaderTest {
 	public void testRead() throws ShapeException {		
 		List<String> actual;
 		actual = reader.read(TEST_FILE);
-		String newLine = System.lineSeparator();
+		System.lineSeparator();
 		List<String> expected = List.of("File structure: Sphere",
-				"Center            Boundary             Radius",
-				"0.0 0.0 0.0       10.0 0.0 0.0         10.0",
-				"0XYZ.0 0.0 0.0    10.0 0.0 0.0         10.0",
-				"0.0 0.0 0.0       10.0 0.0 0.0         -999.0",
-				"10.0 10.0 10.0    20.0 10.0 10.0       10.0",
-				"QWEEWQPEWQPQWEPQ  WE@!#@#!!#!#@P@!#P   @!#OPQWEQEWO@#)!",
+				"Center                    Radius",
+				"0.0 0.0 0.0               10.0",
+				"0XYZ.0 0.0 0.0            10.0",
+				"0.0 0.0 0.0               -999.0",
+				"10.0 10.0 10.0            10.0",
+				"QWEEWQPEWQPQWEPQ          @!#OPQWEQEWO@#)!",
 				"",
-				"-4.0 -3.0 -2.0    -14.0 -3.0 -2.0      10.0",
-				"-4.0 -2.0 -7.0    -8.0  ____ ____      ____",
-				"20.0 30.0 40.0     40.0 30.0 40.0      20.0",
-				"-3.0 5.0 7.0       40.0 30.0 40.0      20.0");
+				"-4.0 -3.0 -2.0            10.0",
+				"-4.0 -2.0 -7.0            ____",
+				"20.0 30.0 40.0            20.0",
+				"-3.0 5.0 7.0              20.0");
 		assertEquals(actual, expected);
 	}
 

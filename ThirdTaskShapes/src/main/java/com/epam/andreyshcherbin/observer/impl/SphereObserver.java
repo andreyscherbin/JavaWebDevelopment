@@ -14,6 +14,6 @@ public class SphereObserver implements ShapeObserver {
 		long id = sphere.getId();
 		ShapeValues shapeValues = new ShapeValues(sphere);
 		Warehouse warehouse = Warehouse.getInstance();
-		warehouse.addShapeValues(id, shapeValues);
+		warehouse.putShapeValues(id, shapeValues);		
 	}
 }

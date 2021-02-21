@@ -8,7 +8,7 @@ import com.epam.andreyshcherbin.entity.ShapeValues;
 public final class Warehouse {
 
 	private static final Warehouse INSTANCE = new Warehouse();
-	private Map<Long, ShapeValues> shapesValues = new HashMap<>();	
+	private Map<Long, ShapeValues> shapesValues = new HashMap<>();
 
 	private Warehouse() {
 	}
@@ -16,21 +16,20 @@ public final class Warehouse {
 	public static Warehouse getInstance() {
 		return INSTANCE;
 	}
-	
+
 	public Map<Long, ShapeValues> getShapesValues() {
 		return Collections.unmodifiableMap(shapesValues);
 	}
 
-	public void addShapeValues(long id, ShapeValues shapeValues) {
+	public void putShapeValues(long id, ShapeValues shapeValues) {
 		shapesValues.put(id, shapeValues);
 	}
 
-	@Override
-	public String toString() {
-		StringBuilder builder = new StringBuilder();
-		builder.append("Warehouse [shapesValues=");
-		builder.append(shapesValues);
-		builder.append("]");
-		return builder.toString();
+	public ShapeValues getShapeValues(long id) {
+		return shapesValues.get(id);
+	}
+
+	public boolean removeShapeValues(long id, ShapeValues shapeValues) {
+		return shapesValues.remove(id, shapeValues);
 	}
 }
