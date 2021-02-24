@@ -8,12 +8,12 @@ import com.epam.andreyshcherbin.composite.TypeComponent;
 
 public class SentenceParser extends AbstractParser {
 	
-	private static final String LEXEME = "(\\w+)|(\\p{Punct})";
+	private static final String LEXEME = "[\\w\\p{Punct}А-Яа-я“”]+";
 
 	public SentenceParser(AbstractParser nextParser) {
 		super(nextParser);
 	}
-
+	
 	@Override
 	public void parse(String sentence, TextComposite sentenceComposite) {
 		Pattern pattern = Pattern.compile(LEXEME);

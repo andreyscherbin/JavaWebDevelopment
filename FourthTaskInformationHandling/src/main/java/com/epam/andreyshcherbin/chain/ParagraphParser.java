@@ -8,7 +8,7 @@ import com.epam.andreyshcherbin.composite.TypeComponent;
 
 public class ParagraphParser extends AbstractParser {
 
-	private static final String SENTENCE = "[A-Z0-9][\\w \\p{Punct}]+[\\.!?] ";
+	private static final String SENTENCE = "([A-Z0-9])(([\\w\\s]|[\\p{Punct}А-Яа-я“”](?!\\s[A-Z0-9]))+)([?!.])";
 
 	public ParagraphParser(AbstractParser nextParser) {
 		super(nextParser);

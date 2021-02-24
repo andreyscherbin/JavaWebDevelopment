@@ -1,10 +1,10 @@
 package com.epam.andreyshcherbin.composite;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class TextComposite implements TextComponent {
+	private static int id = 0;
 	private TypeComponent type;
 	private List<TextComponent> components = new ArrayList<>();
 
@@ -23,10 +23,12 @@ public class TextComposite implements TextComponent {
 		this.type = type;
 	}
 
+	//later change
 	public List<TextComponent> getComponents() {
-		return Collections.unmodifiableList(components);
+		//return Collections.unmodifiableList(components);
+		return components;
 	}
-
+	
 	public boolean addComponent(TextComponent componentText) {
 		return components.add(componentText);
 	}
@@ -39,7 +41,10 @@ public class TextComposite implements TextComponent {
 	public int countSymbol() {
 		int counter = 0;
 		for (TextComponent component : this.components) {
-			counter += component.countSymbol();
+			if (component.getType() == TypeComponent.SYMBOL) {
+				counter += component.countSymbol();
+				System.out.println("id: " + ++id + " Symbol: = " + component);
+			}
 		}
 		return counter;
 	}
@@ -48,8 +53,8 @@ public class TextComposite implements TextComponent {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((components == null) ? 0 : components.hashCode());
-		result = prime * result + ((type == null) ? 0 : type.hashCode());
+		result = prime * result + ((components != null) ? components.hashCode() : 0);
+		result = prime * result + ((type != null) ? type.hashCode() : 0);
 		return result;
 	}
 
@@ -74,12 +79,20 @@ public class TextComposite implements TextComponent {
 
 	@Override
 	public String toString() {
-		StringBuilder builder = new StringBuilder();
-		builder.append("CompositeText [type=");
-		builder.append(type);
-		builder.append(", components=");
-		builder.append(components);
-		builder.append("]");
-		return builder.toString();
+		StringBuilder text = new StringBuilder();
+		for (TextComponent component : components) {
+
+			if (component.getType() == TypeComponent.PARAGRAPH) {
+				text.append("\t");
+			}
+			text.append(component);
+			if (component.getType() != TypeComponent.SYMBOL) {
+				text.append("\s");
+			}
+			if (component.getType() == TypeComponent.PARAGRAPH) {
+				text.append("\n");
+			}
+		}
+		return text.toString();
 	}
 }

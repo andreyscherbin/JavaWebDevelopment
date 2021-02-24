@@ -8,7 +8,7 @@ import com.epam.andreyshcherbin.composite.TypeComponent;
 
 public class TextParser extends AbstractParser {
 	
-	private static final String PARAGRAPH = "\t[A-Z0-9][\\w \\p{Punct}]+";
+	private static final String PARAGRAPH = "\t[A-Z0-9][\\w \\p{Punct}А-Яа-я“”\n]+";
 
 	public TextParser(AbstractParser nextParser) {
 		super(nextParser);

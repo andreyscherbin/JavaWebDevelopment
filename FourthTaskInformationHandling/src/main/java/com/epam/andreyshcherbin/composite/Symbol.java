@@ -35,7 +35,7 @@ public class Symbol implements TextComponent {
 	public int countSymbol() {
 		return 1;
 	}
-	
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -66,13 +66,7 @@ public class Symbol implements TextComponent {
 
 	@Override
 	public String toString() {
-		StringBuilder builder = new StringBuilder();
-		builder.append("Symbol [type=");
-		builder.append(type);
-		builder.append(", value=");
-		builder.append(value);
-		builder.append("]");
-		return builder.toString();
+		return value.toString();
 	}
 
 	@Override
