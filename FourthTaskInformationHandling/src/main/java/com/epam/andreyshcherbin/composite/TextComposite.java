@@ -1,10 +1,10 @@
 package com.epam.andreyshcherbin.composite;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class TextComposite implements TextComponent {
-	private static int id = 0;
 	private TypeComponent type;
 	private List<TextComponent> components = new ArrayList<>();
 
@@ -23,12 +23,10 @@ public class TextComposite implements TextComponent {
 		this.type = type;
 	}
 
-	//later change
 	public List<TextComponent> getComponents() {
-		//return Collections.unmodifiableList(components);
-		return components;
+		return Collections.unmodifiableList(components);
 	}
-	
+
 	public boolean addComponent(TextComponent componentText) {
 		return components.add(componentText);
 	}
@@ -43,7 +41,6 @@ public class TextComposite implements TextComponent {
 		for (TextComponent component : this.components) {
 			if (component.getType() == TypeComponent.SYMBOL) {
 				counter += component.countSymbol();
-				System.out.println("id: " + ++id + " Symbol: = " + component);
 			}
 		}
 		return counter;

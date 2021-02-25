@@ -2,7 +2,6 @@ package com.epam.andreyshcherbin.chain;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
 import com.epam.andreyshcherbin.composite.TextComposite;
 import com.epam.andreyshcherbin.composite.TypeComponent;
 

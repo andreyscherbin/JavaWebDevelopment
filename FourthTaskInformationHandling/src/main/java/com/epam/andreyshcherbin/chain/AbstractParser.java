@@ -13,5 +13,9 @@ public abstract class AbstractParser {
 
 	public AbstractParser getNextParser() {
 		return nextParser;
-	}	
+	}
+
+	public boolean hasNext() {
+		return nextParser != null;
+	}
 }

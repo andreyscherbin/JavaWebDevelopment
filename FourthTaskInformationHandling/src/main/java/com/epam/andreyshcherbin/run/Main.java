@@ -20,13 +20,12 @@ public class Main {
 		DataReader reader = new DataReader();
 		String data = reader.read("data\\text.txt");
 		TextParser textParser = new TextParser(new ParagraphParser(new SentenceParser(new LexemeParser(null))));
-		textParser.parse(data, text);
-		//System.out.println(textComposite.toString().strip().replaceAll(" +", " "));
-		System.out.println(text);
-		textAction.sortParagraphsBySentences(text);	
-		textAction.sortSentencesByWords(text);	
-		System.out.println("Number symbols: " +  textAction.numberSymbols(text));
+		textParser.parse(data, text);			
+		textAction.sortParagraphsBySentences(text);			
 		textAction.getSentencesWithLongestWord(text);
 		textAction.deleteFromTextSentencesWithWordsLessGivenNumber(text, 5);
+		textAction.findWordsAndCountThem(text);
+		System.out.println(text);
+		System.out.println("Number symbols: " +  textAction.numberSymbols(text));
 	}
 }
