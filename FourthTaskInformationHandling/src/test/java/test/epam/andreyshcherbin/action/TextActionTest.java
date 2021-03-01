@@ -26,6 +26,7 @@ import org.testng.annotations.AfterClass;
 public class TextActionTest {
 
 	private static final String TEST_FILE = "data\\text.txt";
+	private static final int NUMBER_SYMBOLS = 633;
 	private TextAction textAction;
 	private DataReader reader;
 	private TextParser textParser;
@@ -56,7 +57,7 @@ public class TextActionTest {
 	@Test
 	public void numberSymbolsTest() throws TextException {
 		int actual = textAction.numberSymbols(text);
-		int expected = 633;
+		int expected = NUMBER_SYMBOLS;
 		assertEquals(actual, expected);
 	}
 
