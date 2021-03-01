@@ -5,26 +5,35 @@ import java.util.Collections;
 import java.util.List;
 
 public class TextComposite implements TextComponent {
-	private TypeComponent type;
+
+	private static final String TAB = "\t";
+	private static final String SPACE = " ";
+	private static final String NEW_LINE = "\n";
+
+	private ComponentType type;
 	private List<TextComponent> components = new ArrayList<>();
 
 	public TextComposite() {
 	}
 
-	public TextComposite(TypeComponent type) {
+	public TextComposite(ComponentType type) {
 		this.type = type;
 	}
 
-	public TypeComponent getType() {
+	public ComponentType getType() {
 		return type;
 	}
 
-	public void setType(TypeComponent type) {
+	public void setType(ComponentType type) {
 		this.type = type;
 	}
 
 	public List<TextComponent> getComponents() {
 		return Collections.unmodifiableList(components);
+	}
+
+	public void setComponents(List<TextComponent> components) {
+		this.components = components;
 	}
 
 	public boolean addComponent(TextComponent componentText) {
@@ -39,7 +48,7 @@ public class TextComposite implements TextComponent {
 	public int countSymbol() {
 		int counter = 0;
 		for (TextComponent component : this.components) {
-			if (component.getType() == TypeComponent.SYMBOL) {
+			if (component.getType() == ComponentType.SYMBOL) {
 				counter += component.countSymbol();
 			}
 		}
@@ -78,16 +87,20 @@ public class TextComposite implements TextComponent {
 	public String toString() {
 		StringBuilder text = new StringBuilder();
 		for (TextComponent component : components) {
-
-			if (component.getType() == TypeComponent.PARAGRAPH) {
-				text.append("\t");
+			int index = components.indexOf(component);
+			int size = components.size();
+			if (component.getType() == ComponentType.PARAGRAPH) {
+				text.append(TAB);
+			}
+			if (component.getType() == ComponentType.SENTENCE && index != 0) {
+				text.append(SPACE);
 			}
 			text.append(component);
-			if (component.getType() != TypeComponent.SYMBOL) {
-				text.append("\s");
+			if (component.getType() == ComponentType.PARAGRAPH && index != size - 1) {
+				text.append(NEW_LINE);
 			}
-			if (component.getType() == TypeComponent.PARAGRAPH) {
-				text.append("\n");
+			if (component.getType() == ComponentType.LEXEME && index != size - 1) {
+				text.append(SPACE);
 			}
 		}
 		return text.toString();

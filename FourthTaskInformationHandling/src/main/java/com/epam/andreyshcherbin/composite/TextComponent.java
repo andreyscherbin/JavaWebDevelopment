@@ -4,7 +4,7 @@ import java.util.List;
 
 public interface TextComponent {
 
-	TypeComponent getType();
+	ComponentType getType();
 
 	List<TextComponent> getComponents();
 

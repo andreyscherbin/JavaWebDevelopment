@@ -2,24 +2,24 @@ package com.epam.andreyshcherbin.composite;
 
 import java.util.List;
 
-public class Symbol implements TextComponent {
+public class CustomSymbol implements TextComponent {
 
-	private TypeComponent type;
+	private ComponentType type;
 	private Character value;
 
-	public Symbol() {
+	public CustomSymbol() {
 	}
 
-	public Symbol(TypeComponent type, Character value) {
+	public CustomSymbol(ComponentType type, Character value) {
 		this.type = type;
 		this.value = value;
 	}
 
-	public TypeComponent getType() {
+	public ComponentType getType() {
 		return type;
 	}
 
-	public void setType(TypeComponent type) {
+	public void setType(ComponentType type) {
 		this.type = type;
 	}
 
@@ -53,7 +53,7 @@ public class Symbol implements TextComponent {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Symbol other = (Symbol) obj;
+		CustomSymbol other = (CustomSymbol) obj;
 		if (value == null) {
 			if (other.value != null)
 				return false;
@@ -71,6 +71,6 @@ public class Symbol implements TextComponent {
 
 	@Override
 	public List<TextComponent> getComponents() {
-		throw new UnsupportedOperationException("undone");
+		throw new UnsupportedOperationException("Unsupported operation for CustomSymbol class ");
 	}
 }
