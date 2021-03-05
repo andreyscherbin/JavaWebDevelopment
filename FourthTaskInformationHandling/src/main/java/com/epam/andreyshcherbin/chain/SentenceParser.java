@@ -11,7 +11,7 @@ import com.epam.andreyshcherbin.exception.TextException;
 public class SentenceParser extends AbstractParser {
 
 	private static Logger logger = LogManager.getLogger();
-	private static final String LEXEME_REGEX = "[\\w\\p{Punct}А-Яа-я]+";
+	private static final String LEXEME_REGEX = "[\\w\\p{Punct}\\p{IsCyrillic}]+";
 
 	public SentenceParser(AbstractParser nextParser) {
 		super(nextParser);

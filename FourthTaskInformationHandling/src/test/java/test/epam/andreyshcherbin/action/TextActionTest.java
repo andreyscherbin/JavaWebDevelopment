@@ -2,6 +2,7 @@ package test.epam.andreyshcherbin.action;
 
 import org.testng.annotations.Test;
 import com.epam.andreyshcherbin.action.TextAction;
+import com.epam.andreyshcherbin.action.TextActionStream;
 import com.epam.andreyshcherbin.chain.LexemeParser;
 import com.epam.andreyshcherbin.chain.ParagraphParser;
 import com.epam.andreyshcherbin.chain.SentenceParser;
@@ -28,6 +29,7 @@ public class TextActionTest {
 	private static final String TEST_FILE = "data\\text.txt";
 	private static final int NUMBER_SYMBOLS = 633;
 	private TextAction textAction;
+	private TextActionStream textActionStream;
 	private DataReader reader;
 	private TextParser textParser;
 	private TextComposite text;
@@ -40,6 +42,7 @@ public class TextActionTest {
 		textParser = new TextParser(new ParagraphParser(new SentenceParser(new LexemeParser(new WordParser(null)))));
 		textParser.parse(data, text);
 		textAction = new TextAction();
+		textActionStream = new TextActionStream();
 
 	}
 
@@ -57,6 +60,13 @@ public class TextActionTest {
 	@Test
 	public void numberSymbolsTest() throws TextException {
 		int actual = textAction.numberSymbols(text);
+		int expected = NUMBER_SYMBOLS;
+		assertEquals(actual, expected);
+	}
+	
+	@Test
+	public void numberSymbolsTestStream() throws TextException {
+		int actual = textActionStream.numberSymbolsStream(text);
 		int expected = NUMBER_SYMBOLS;
 		assertEquals(actual, expected);
 	}
@@ -111,6 +121,7 @@ public class TextActionTest {
 	@AfterClass
 	public void afterClass() {
 		textAction = null;
+		textActionStream = null;
 		reader = null;
 		textParser = null;
 		text = null;

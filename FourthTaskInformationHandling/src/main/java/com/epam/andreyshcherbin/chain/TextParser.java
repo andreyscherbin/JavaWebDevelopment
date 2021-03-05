@@ -11,7 +11,7 @@ import com.epam.andreyshcherbin.exception.TextException;
 public class TextParser extends AbstractParser {
 
 	private static Logger logger = LogManager.getLogger();
-	private static final String PARAGRAPH_REGEX = "\t[A-Z][\\w \\p{Punct}А-Яа-я\n]+";
+	private static final String PARAGRAPH_REGEX = "\t[\\p{Upper}][\\w \\p{Punct}\\p{IsCyrillic}\n]+";
 
 	public TextParser(AbstractParser nextParser) {
 		super(nextParser);
