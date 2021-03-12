@@ -9,86 +9,131 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import com.epam.multithreading.exception.ResourceException;
 
 public class FerryBoat {
 
-	private int maxWeight;
-	private int maxArea;
-
+	private static Logger logger = LogManager.getLogger();
+	private static final int MAX_WEIGHT = 1000;
+	private static final int MAX_AREA = 1000;
 	private static final int NUMBER_SPACES = 5;
 	public static final CyclicBarrier barrier;
-	private Lock lock;
-	private Condition condition;
-	private Semaphore semaphore;
+	private static FerryBoat instance;
+	private static Lock lock;
+	private static Condition condition;
+	private static Semaphore semaphore;
 	private Deque<ParkingSpace> spaces;
 	private Deque<Car> cars;
+	private static int currentWeight;
+	private static int currentArea;
 
 	static {
 		barrier = new CyclicBarrier(NUMBER_SPACES, () -> crossRiver());
-	}
-
-	{
-		spaces = new ArrayDeque<>();
-		cars = new ArrayDeque<>();
-		semaphore = new Semaphore(NUMBER_SPACES, true);
 		lock = new ReentrantLock(true);
+		semaphore = new Semaphore(NUMBER_SPACES, true);
 		condition = lock.newCondition();
 	}
 
-	public FerryBoat() {
+	{
+		spaces = new ArrayDeque<>() {
+			{
+				this.add(new ParkingSpace(1));
+				this.add(new ParkingSpace(2));
+				this.add(new ParkingSpace(3));
+				this.add(new ParkingSpace(4));
+				this.add(new ParkingSpace(5));
+			}
+		};
+		cars = new ArrayDeque<>();
 	}
 
-	public FerryBoat(int maxWeight, int maxArea, Deque<ParkingSpace> spaces) {
-		this.maxWeight = maxWeight;
-		this.maxArea = maxArea;
+	private FerryBoat() {
+	}
+
+	public Deque<ParkingSpace> getSpaces() {
+		return spaces;
+	}
+
+	public void setSpaces(Deque<ParkingSpace> spaces) {
 		this.spaces = spaces;
 	}
 
+	public static FerryBoat getInstance() {
+		if (instance == null) {
+			lock.lock();
+			if (instance == null) {
+				instance = new FerryBoat();
+			}
+			lock.unlock();
+		}
+		return instance;
+	}
+
 	public static void crossRiver() {
-		System.out.println("boat start crossing river");
+		logger.info("BOAT START CROSING RIVER");
 		try {
 			TimeUnit.SECONDS.sleep(1);
 		} catch (InterruptedException e) {
-			e.printStackTrace();
+			Thread.currentThread().interrupt(); // решить проблему
 		}
-		System.out.println("boat finish crossing river");
+		logger.info("BOAT FINISH CROSING RIVER");
+		clearBoat();
 	}
 
 	public ParkingSpace getResource(Car car) throws ResourceException {
-		cars.offerLast(car);
 		try {
-			lock.lock();
-			Car firstCar = cars.peekFirst();
-			while (firstCar.getId() != car.getId()) {
-				condition.await();
-				firstCar = cars.peekFirst();
-			}
+			do {
+				lock.lock();
+				cars.offerLast(car);
+				lock.unlock();
 
-			cars.pollFirst();
-			condition.signal();
-			lock.unlock();
+				lock.lock();
+				Car firstCar = cars.peekFirst();
+				while (firstCar.getId() != car.getId()) {
+					condition.await();
+					firstCar = cars.peekFirst();
+				}
+				cars.pollFirst();
+				condition.signal();
+				lock.unlock();
+			} while (!isFreeAreaAndWeight(car));
+			addAreaAndWeight(car);
 
 			semaphore.acquire();
-
 			for (ParkingSpace space : spaces) {
 				if (!space.isBusy().get()) {
 					AtomicBoolean atomicBoolean = space.isBusy();
 					atomicBoolean.set(true);
-					System.out.println("Car #" + car.getId() + " took space " + space);
+					logger.info("Car # {} took space {}", car.getId(), space);
 					return space;
 				}
 			}
 		} catch (InterruptedException e) {
 			Thread.currentThread().interrupt();
 		}
-		throw new ResourceException("no resource");
+		throw new ResourceException("no resource"); // решить проблему
 	}
 
 	public void releaseSpace(Car car, ParkingSpace space) {
 		AtomicBoolean atomicBoolean = space.isBusy();
 		atomicBoolean.set(false);
-		System.out.println("Car #" + car.getId() + ": " + space + " --> released");
+		logger.info("Car # {} --> released {}", car.getId(), space);
 		semaphore.release();
+	}
+
+	private static boolean isFreeAreaAndWeight(Car car) {
+		return currentArea + car.getArea() <= MAX_AREA && currentWeight + car.getWeight() <= MAX_WEIGHT;
+	}
+
+	private static void addAreaAndWeight(Car car) {
+		currentArea += car.getArea();
+		currentWeight += car.getWeight();
+	}
+
+	private static void clearBoat() {
+		currentArea = 0;
+		currentWeight = 0;
 	}
 }

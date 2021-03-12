@@ -34,6 +34,7 @@ public class ParkingSpace {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+		result = prime * result + ((busy == null) ? 0 : busy.hashCode());
 		result = prime * result + parkingSpaceId;
 		return result;
 	}
@@ -47,6 +48,11 @@ public class ParkingSpace {
 		if (getClass() != obj.getClass())
 			return false;
 		ParkingSpace other = (ParkingSpace) obj;
+		if (busy == null) {
+			if (other.busy != null)
+				return false;
+		} else if (!busy.equals(other.busy))
+			return false;
 		if (parkingSpaceId != other.parkingSpaceId)
 			return false;
 		return true;
