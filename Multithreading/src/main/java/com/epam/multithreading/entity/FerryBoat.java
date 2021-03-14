@@ -76,7 +76,7 @@ public class FerryBoat {
 		try {
 			TimeUnit.SECONDS.sleep(1);
 		} catch (InterruptedException e) {
-			Thread.currentThread().interrupt(); // решить проблему
+			Thread.currentThread().interrupt();
 		}
 		logger.info("BOAT FINISH CROSING RIVER");
 		clearBoat();
@@ -113,7 +113,7 @@ public class FerryBoat {
 		} catch (InterruptedException e) {
 			Thread.currentThread().interrupt();
 		}
-		throw new ResourceException("no resource"); // решить проблему
+		throw new ResourceException("no resource, interrupt happen");
 	}
 
 	public void releaseSpace(Car car, ParkingSpace space) {

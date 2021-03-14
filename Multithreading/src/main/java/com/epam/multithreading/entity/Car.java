@@ -10,40 +10,39 @@ import com.epam.multithreading.generator.IdGenerator;
 import java.util.concurrent.BrokenBarrierException;
 
 public class Car extends Thread {
-	
+
 	private static Logger logger = LogManager.getLogger();
-	
-	private long carId;	
+
+	private long carId;
 	private int weight;
 	private int area;
 	private CyclicBarrier barrier;
 	private CarType type;
-	
+
 	public enum CarType {
-		LIGHT_WEIGHT,
-		HEAVY_WEIGHT
+		LIGHT_WEIGHT, HEAVY_WEIGHT
 	}
-	
+
 	{
-		barrier = FerryBoat.barrier;	
-		carId = IdGenerator.getId();		
+		barrier = FerryBoat.barrier;
+		carId = IdGenerator.getId();
 	}
 
 	public Car() {
-		carId = IdGenerator.getId();	
+		carId = IdGenerator.getId();
 	}
 
-	public Car(int weight, int area, CarType type) {		
+	public Car(int weight, int area, CarType type) {
 		this.weight = weight;
 		this.area = area;
-		this.type = type;		
+		this.type = type;
 	}
-	
-	@Override	
+
+	@Override
 	public long getId() {
 		return carId;
 	}
-	
+
 	public int getWeight() {
 		return weight;
 	}
@@ -61,21 +60,27 @@ public class Car extends Thread {
 	}
 
 	@Override
-	public void run() {		
+	public void run() {
 		logger.info("Car # {} goes to ferry boat", this.getId());
 		ParkingSpace space = null;
 		FerryBoat boat = FerryBoat.getInstance();
-		try {			
+		try {
 			space = boat.getResource(this);
-			this.barrier.await();			
-		} catch (BrokenBarrierException | ResourceException | InterruptedException e) {
-			System.err.println("Car #" + this.getId() + " lost ->" + e.getMessage()); // решить эту проблему
+			this.barrier.await();
+		} catch (BrokenBarrierException | InterruptedException e) {
+			Thread.currentThread().interrupt();
+		} catch (ResourceException e) {
+			logger.error("Car # {} could not take a place", this.getId());
 		} finally {
 			if (space != null) {
 				boat.releaseSpace(this, space);
 			}
-		}		
-		logger.info("Car # {} after crossing river", this.getId());
+		}
+		if (!Thread.currentThread().isInterrupted()) {
+			logger.info("Car # {} after crossing river", this.getId());
+		} else {
+			logger.error("Car # {} could not take a place", this.getId());
+		}
 	}
 
 	@Override

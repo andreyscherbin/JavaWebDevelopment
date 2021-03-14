@@ -11,8 +11,8 @@ public class Main {
 
 	private static final String DATA = "data\\cars.txt";
 
-	public static void main(String[] args) throws ResourceException {		
-				
+	public static void main(String[] args) throws ResourceException {
+
 		DataReader reader = new DataReader();
 		DataParser parser = new DataParser();
 		List<String> carsString = reader.read(DATA);
